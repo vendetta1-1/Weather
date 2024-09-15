@@ -1,11 +1,13 @@
 package com.vendetta.weather.data.model
 
-
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class Clouds (
-    @SerializedName("all")
+
+data class Condition(
+
+    @SerializedName("text")
     @Expose
-    private val all:Int
+    val text: String?
+
 )

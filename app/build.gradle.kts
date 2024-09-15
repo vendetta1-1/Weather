@@ -1,8 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.serialization)
-    id ("kotlin-kapt")
+    id("kotlin-kapt")
     alias(libs.plugins.compose.compiler)
 
 }
@@ -34,11 +33,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_19
-        targetCompatibility = JavaVersion.VERSION_19
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "19"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
@@ -58,8 +57,9 @@ dependencies {
     //location
     implementation(libs.play.services.location)
     //dependency injection
-    implementation (libs.dagger)
-    kapt (libs.dagger.compiler)
+    implementation(libs.dagger)
+    implementation(libs.androidx.runner)
+    kapt(libs.dagger.compiler)
     //retrofit
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)

@@ -2,7 +2,6 @@ package com.vendetta.weather.data
 
 import android.location.Location
 import android.util.Log
-import com.google.gson.JsonObject
 import com.vendetta.weather.data.network.ApiFactory
 import com.vendetta.weather.domain.repository.WeatherRepository
 
@@ -13,31 +12,50 @@ class WeatherRepositoryImpl : WeatherRepository {
     private val apiService = ApiFactory.apiService
 
     companion object {
-        private const val API_KEY = "9e259fdb9b1d998ab743f84f80a00504"
+        private const val TAG = "Weather-Response"
+        private const val API_KEY = "215d4f335ca94d4c8d2125219241703"
 
     }
 
     override suspend fun getWeatherInCurrentLocationToday(location: Location) {
-        Log.i("Weather-Response",(apiService.loadWeather(location.latitude, location.longitude, API_KEY).toString()))
+        Log.i(
+            TAG,
+            (apiService.loadWeatherToday(
+                "${location.latitude},${location.longitude}",
+                API_KEY
+            ).toString())
+        )
     }
 
-    override suspend fun getWeatherInCurrentLocationTomorrow(location: Location): JsonObject {
+    override suspend fun getWeatherInCurrentLocationTomorrow(location: Location) {
+        Log.i(
+            TAG,
+            (apiService.loadWeatherTomorrow(
+                "${location.latitude},${location.longitude}",
+                API_KEY
+            ).toString())
+        )
+    }
+
+    override suspend fun getWeatherInCurrentLocationDayAfterTomorrow(location: Location) {
+        Log.i(
+            TAG,
+            apiService.loadWeatherDayAfterTomorrow(
+                "${location.latitude},${location.longitude}",
+                API_KEY
+            ).toString()
+        )
+    }
+
+    override suspend fun getWeatherInCityPeakedByUserToday(location: Location) {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getWeatherInCurrentLocationForFiveDays(location: Location): JsonObject {
+    override suspend fun getWeatherInCityPeakedByUserTomorrow(location: Location) {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getWeatherInCityPeakedByUserToday(location: Location): JsonObject {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun getWeatherInCityPeakedByUserTomorrow(location: Location): JsonObject {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun getWeatherInCityPeakedByUserForFiveDays(location: Location): JsonObject {
+    override suspend fun getWeatherInCityPeakedByUserDayAfterTomorrow(location: Location) {
         TODO("Not yet implemented")
     }
 

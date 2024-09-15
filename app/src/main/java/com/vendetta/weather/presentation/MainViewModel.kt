@@ -9,12 +9,14 @@ import kotlinx.coroutines.launch
 
 class MainViewModel : ViewModel() {
 
+
     private val location = Location("Rostov")
 
 
     private val repository = WeatherRepositoryImpl()
 
     private val useCase = GetWeatherInCurrentLocationTodayUseCase(repository)
+
 
     fun loadWeather() {
         viewModelScope.launch {

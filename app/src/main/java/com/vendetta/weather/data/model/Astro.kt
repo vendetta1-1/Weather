@@ -3,13 +3,14 @@ package com.vendetta.weather.data.model
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class Coordinates(
 
-    @SerializedName("lon")
+data class Astro(
+
+    @SerializedName("sunrise")
     @Expose
-    private val longitude: Double,
-    @SerializedName("lat")
+    val sunrise: String?,
+    @SerializedName("sunset")
     @Expose
-    private val latitude: Double
+    val sunset: String?
 
 )
