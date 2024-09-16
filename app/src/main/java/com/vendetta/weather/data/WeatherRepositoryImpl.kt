@@ -48,15 +48,33 @@ class WeatherRepositoryImpl : WeatherRepository {
     }
 
     override suspend fun getWeatherInCityPeakedByUserToday(location: Location) {
-        TODO("Not yet implemented")
+        Log.i(
+            TAG,
+            (apiService.loadWeatherToday(
+                "${location.latitude},${location.longitude}",
+                API_KEY
+            ).toString())
+        )
     }
 
     override suspend fun getWeatherInCityPeakedByUserTomorrow(location: Location) {
-        TODO("Not yet implemented")
+        Log.i(
+            TAG,
+            (apiService.loadWeatherTomorrow(
+                "${location.latitude},${location.longitude}",
+                API_KEY
+            ).toString())
+        )
     }
 
     override suspend fun getWeatherInCityPeakedByUserDayAfterTomorrow(location: Location) {
-        TODO("Not yet implemented")
+        Log.i(
+            TAG,
+            apiService.loadWeatherDayAfterTomorrow(
+                "${location.latitude},${location.longitude}",
+                API_KEY
+            ).toString()
+        )
     }
 
 }
