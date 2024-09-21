@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 
-data class Forecastday(
+data class ForecastDayModel(
 
     @SerializedName("date")
     @Expose
@@ -14,12 +14,12 @@ data class Forecastday(
     val dateEpoch: Int,
     @SerializedName("day")
     @Expose
-    val day: Day,
+    val day: DayModel,
     @SerializedName("astro")
     @Expose
-    val astro: Astro,
+    val astro: AstroModel,
     @SerializedName("hour")
     @Expose
-    val hour: ArrayList<Hour>
+    val hour: List<HourModel>
 
 )

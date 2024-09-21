@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 
-data class Location(
+data class LocationModel(
 
     @SerializedName("name")
     @Expose

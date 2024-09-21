@@ -1,79 +1,66 @@
 package com.vendetta.weather.data
 
 import android.location.Location
-import android.util.Log
+import com.vendetta.weather.data.mapper.ModelToEntityMapper
 import com.vendetta.weather.data.network.ApiFactory
+import com.vendetta.weather.domain.entity.WeatherEntity
 import com.vendetta.weather.domain.repository.WeatherRepository
+import javax.inject.Inject
 
 
-class WeatherRepositoryImpl : WeatherRepository {
+class WeatherRepositoryImpl @Inject constructor() : WeatherRepository {
 
 
     private val apiService = ApiFactory.apiService
 
-    companion object {
-        private const val TAG = "Weather-Response"
-        private const val API_KEY = "215d4f335ca94d4c8d2125219241703"
+    private val mapper = ModelToEntityMapper()
+
+    override suspend fun getWeatherInCurrentLocationToday(location: Location): WeatherEntity {
+        return mapper.weatherModelToWeatherEntity(
+            apiService.loadWeatherToday(
+                "${location.latitude},${location.longitude}"
+            )
+        )
 
     }
 
-    override suspend fun getWeatherInCurrentLocationToday(location: Location) {
-        Log.i(
-            TAG,
-            (apiService.loadWeatherToday(
-                "${location.latitude},${location.longitude}",
-                API_KEY
-            ).toString())
+    override suspend fun getWeatherInCurrentLocationTomorrow(location: Location): WeatherEntity {
+        return mapper.weatherModelToWeatherEntity(
+            apiService.loadWeatherTomorrow(
+                "${location.latitude},${location.longitude}"
+            )
         )
     }
 
-    override suspend fun getWeatherInCurrentLocationTomorrow(location: Location) {
-        Log.i(
-            TAG,
-            (apiService.loadWeatherTomorrow(
-                "${location.latitude},${location.longitude}",
-                API_KEY
-            ).toString())
-        )
-    }
-
-    override suspend fun getWeatherInCurrentLocationDayAfterTomorrow(location: Location) {
-        Log.i(
-            TAG,
+    override suspend fun getWeatherInCurrentLocationDayAfterTomorrow(location: Location): WeatherEntity {
+        return mapper.weatherModelToWeatherEntity(
             apiService.loadWeatherDayAfterTomorrow(
-                "${location.latitude},${location.longitude}",
-                API_KEY
-            ).toString()
+                "${location.latitude},${location.longitude}"
+            )
         )
     }
 
-    override suspend fun getWeatherInCityPeakedByUserToday(location: Location) {
-        Log.i(
-            TAG,
-            (apiService.loadWeatherToday(
-                "${location.latitude},${location.longitude}",
-                API_KEY
-            ).toString())
+    override suspend fun getWeatherInCityPeakedByUserToday(location: Location): WeatherEntity {
+        return mapper.weatherModelToWeatherEntity(
+            apiService.loadWeatherToday(
+                "${location.latitude},${location.longitude}"
+            )
         )
     }
 
-    override suspend fun getWeatherInCityPeakedByUserTomorrow(location: Location) {
-        Log.i(
-            TAG,
-            (apiService.loadWeatherTomorrow(
-                "${location.latitude},${location.longitude}",
-                API_KEY
-            ).toString())
+    override suspend fun getWeatherInCityPeakedByUserTomorrow(location: Location): WeatherEntity {
+        return mapper.weatherModelToWeatherEntity(
+            apiService.loadWeatherTomorrow(
+                "${location.latitude},${location.longitude}"
+            )
         )
     }
 
-    override suspend fun getWeatherInCityPeakedByUserDayAfterTomorrow(location: Location) {
-        Log.i(
-            TAG,
+    override suspend fun getWeatherInCityPeakedByUserDayAfterTomorrow(location: Location): WeatherEntity {
+        return mapper.weatherModelToWeatherEntity(
             apiService.loadWeatherDayAfterTomorrow(
-                "${location.latitude},${location.longitude}",
-                API_KEY
-            ).toString()
+                "${location.latitude},${location.longitude}"
+            )
         )
     }
 

@@ -4,16 +4,16 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 
-data class WeatherResponseModel(
+data class WeatherModel(
 
     @SerializedName("location")
     @Expose
-    val location: Location?,
+    val location: LocationModel,
     @SerializedName("current")
     @Expose
-    val current: Current?,
+    val current: CurrentModel,
     @SerializedName("forecast")
     @Expose
-    val forecast: Forecast?
+    val forecast: ForecastModel
 
 )
