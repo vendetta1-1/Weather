@@ -4,10 +4,10 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 
-data class Forecast(
+data class ConditionModel(
 
-    @SerializedName("forecastday")
+    @SerializedName("text")
     @Expose
-    val forecastday: ArrayList<Forecastday>
+    val text: String
 
 )

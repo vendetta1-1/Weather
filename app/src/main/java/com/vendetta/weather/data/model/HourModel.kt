@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 
-data class Hour(
+data class HourModel(
 
     @SerializedName("time_epoch")
     @Expose
@@ -17,7 +17,7 @@ data class Hour(
     val tempC: Double,
     @SerializedName("condition")
     @Expose
-    val condition: Condition,
+    val condition: ConditionModel,
     @SerializedName("chance_of_rain")
     @Expose
     val chanceOfRain: Int

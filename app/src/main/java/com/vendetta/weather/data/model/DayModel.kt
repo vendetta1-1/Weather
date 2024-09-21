@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 
-data class Day(
+data class DayModel(
 
     @SerializedName("maxtemp_c")
     @Expose
@@ -20,7 +20,7 @@ data class Day(
     val dailyChanceOfRain: Int,
     @SerializedName("condition")
     @Expose
-    val condition: Condition,
+    val condition: ConditionModel,
     @SerializedName("uv")
     @Expose
     val uv: Double

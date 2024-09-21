@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 
-data class Current(
+data class CurrentModel(
 
     @SerializedName("last_updated_epoch")
     @Expose
@@ -17,7 +17,7 @@ data class Current(
     val tempC: Double,
     @SerializedName("condition")
     @Expose
-    val condition: Condition,
+    val condition: ConditionModel,
     @SerializedName("wind_kph")
     @Expose
     val windKph: Double,

@@ -4,10 +4,13 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 
-data class Condition(
+data class AstroModel(
 
-    @SerializedName("text")
+    @SerializedName("sunrise")
     @Expose
-    val text: String?
+    val sunrise: String,
+    @SerializedName("sunset")
+    @Expose
+    val sunset: String
 
 )

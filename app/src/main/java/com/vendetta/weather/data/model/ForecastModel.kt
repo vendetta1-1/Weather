@@ -4,13 +4,10 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 
-data class Astro(
+data class ForecastModel(
 
-    @SerializedName("sunrise")
+    @SerializedName("forecastday")
     @Expose
-    val sunrise: String?,
-    @SerializedName("sunset")
-    @Expose
-    val sunset: String?
+    val forecastday: List<ForecastDayModel>
 
 )

@@ -1,8 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    id("kotlin-kapt")
     alias(libs.plugins.compose.compiler)
+    id ("kotlin-kapt")
 
 }
 
@@ -58,7 +58,6 @@ dependencies {
     implementation(libs.play.services.location)
     //dependency injection
     implementation(libs.dagger)
-    implementation(libs.androidx.runner)
     kapt(libs.dagger.compiler)
     //retrofit
     implementation(libs.retrofit)
@@ -67,6 +66,7 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.coroutines.core)
     //default
+    implementation(libs.androidx.runner)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
