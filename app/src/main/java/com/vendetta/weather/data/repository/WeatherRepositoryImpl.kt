@@ -1,4 +1,4 @@
-package com.vendetta.weather.data
+package com.vendetta.weather.data.repository
 
 import android.location.Location
 import com.vendetta.weather.data.mapper.ModelToEntityMapper

@@ -1,14 +1,14 @@
 package com.vendetta.weather.data.mapper
 
-import com.vendetta.weather.data.model.AstroModel
-import com.vendetta.weather.data.model.ConditionModel
-import com.vendetta.weather.data.model.CurrentModel
-import com.vendetta.weather.data.model.DayModel
-import com.vendetta.weather.data.model.ForecastDayModel
-import com.vendetta.weather.data.model.ForecastModel
-import com.vendetta.weather.data.model.HourModel
-import com.vendetta.weather.data.model.LocationModel
-import com.vendetta.weather.data.model.WeatherModel
+import com.vendetta.weather.data.network.model.AstroModel
+import com.vendetta.weather.data.network.model.ConditionModel
+import com.vendetta.weather.data.network.model.CurrentModel
+import com.vendetta.weather.data.network.model.DayModel
+import com.vendetta.weather.data.network.model.ForecastDayModel
+import com.vendetta.weather.data.network.model.ForecastModel
+import com.vendetta.weather.data.network.model.HourModel
+import com.vendetta.weather.data.network.model.LocationModel
+import com.vendetta.weather.data.network.model.WeatherModel
 import com.vendetta.weather.domain.entity.AstroEntity
 import com.vendetta.weather.domain.entity.ConditionEntity
 import com.vendetta.weather.domain.entity.CurrentEntity

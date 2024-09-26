@@ -8,7 +8,7 @@ class GetWeatherInCityPeakedByUserDayAfterTomorrowUseCase(
     private val repository: WeatherRepository
 ) {
 
-    suspend fun invoke(location: Location): WeatherEntity {
+    suspend operator fun invoke(location: Location): WeatherEntity {
         return repository.getWeatherInCityPeakedByUserDayAfterTomorrow(location)
     }
 

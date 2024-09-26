@@ -2,8 +2,6 @@ package com.vendetta.weather.domain.entity
 
 
 data class LocationEntity(
-
-
     val name: String,
     val region: String,
     val country: String,

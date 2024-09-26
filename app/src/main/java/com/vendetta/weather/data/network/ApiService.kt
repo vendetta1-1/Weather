@@ -1,6 +1,6 @@
 package com.vendetta.weather.data.network
 
-import com.vendetta.weather.data.model.WeatherModel
+import com.vendetta.weather.data.network.model.WeatherModel
 import retrofit2.http.GET
 import retrofit2.http.Query
 import java.time.LocalDate
