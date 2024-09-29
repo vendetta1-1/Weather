@@ -5,11 +5,11 @@ import com.vendetta.weather.domain.entity.WeatherEntity
 
 interface WeatherRepository {
 
-    suspend fun getWeatherInCurrentLocationToday(location: Location) : WeatherEntity
+    suspend fun getWeatherInCurrentLocationToday(location: Location): WeatherEntity
 
-    suspend fun getWeatherInCurrentLocationTomorrow(location: Location) : WeatherEntity
+    suspend fun getWeatherInCurrentLocationTomorrow(location: Location): WeatherEntity
 
-    suspend fun getWeatherInCurrentLocationDayAfterTomorrow(location: Location) : WeatherEntity
+    suspend fun getWeatherInCurrentLocationDayAfterTomorrow(location: Location): WeatherEntity
 
     suspend fun getWeatherInCityPeakedByUserToday(location: Location): WeatherEntity
 

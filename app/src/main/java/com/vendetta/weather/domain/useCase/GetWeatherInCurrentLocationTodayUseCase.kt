@@ -1,16 +1,16 @@
 package com.vendetta.weather.domain.useCase
 
 import android.location.Location
-import com.vendetta.weather.data.repository.WeatherRepositoryImpl
 import com.vendetta.weather.domain.entity.WeatherEntity
+import com.vendetta.weather.domain.repository.WeatherRepository
 
 class GetWeatherInCurrentLocationTodayUseCase(
-    private val repository: WeatherRepositoryImpl
+    private val repository: WeatherRepository
 ) {
 
 
-    suspend operator fun invoke(location: Location) : WeatherEntity {
-       return repository.getWeatherInCurrentLocationToday(location)
+    suspend operator fun invoke(location: Location): WeatherEntity {
+        return repository.getWeatherInCurrentLocationToday(location)
     }
 
 }

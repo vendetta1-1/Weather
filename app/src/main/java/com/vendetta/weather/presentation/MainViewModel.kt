@@ -4,15 +4,14 @@ import android.location.Location
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.vendetta.weather.di.DaggerRepositoryImplComponent
+import com.vendetta.weather.data.repository.WeatherRepositoryImpl
 import com.vendetta.weather.domain.useCase.GetWeatherInCurrentLocationTodayUseCase
 import kotlinx.coroutines.launch
 
 
 class MainViewModel : ViewModel() {
 
-    private val component = DaggerRepositoryImplComponent.create()
-    private val repository = component.getRepositoryImpl()
+    private val repository = WeatherRepositoryImpl()
 
     private val location = Location("Rostov")
 
