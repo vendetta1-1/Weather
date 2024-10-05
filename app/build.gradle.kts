@@ -66,6 +66,8 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.coroutines.core)
     //default
+    implementation(libs.androidx.compose.runtime)
+    implementation(libs.lifecycle.viewmodel.compose)
     implementation(libs.androidx.runner)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

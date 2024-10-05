@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Weather</string>
+    <string name="wind_speed">Wind speed</string>
+    <string name="pressure">Pressure</string>
+    <string name="rain_chance">Rain chance</string>
+    <string name="uv_index">UV Index</string>
+    <string name="hourly_forecast">Hourly forecast</string>
+    <string name="sunrise">Sunrise</string>
+    <string name="sunset">Sunset</string>
 </resources>
