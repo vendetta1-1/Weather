@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.vendetta.weather.ui.theme.TwoMicroCardInRowPreview
 import com.vendetta.weather.ui.theme.WeatherTheme
 
 class MainActivity : ComponentActivity() {
@@ -20,14 +21,15 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             WeatherTheme {
-                viewModel.loadWeather()
                 WeatherTheme {
+                    viewModel.loadWeather()
                     Column(
                         modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Text(text = "hello world")
+                        TwoMicroCardInRowPreview()
                     }
                 }
             }
