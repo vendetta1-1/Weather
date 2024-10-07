@@ -16,9 +16,9 @@ import kotlinx.coroutines.launch
 
 class MainViewModel : ViewModel() {
 
-    private val _WeaterEntity = MutableLiveData<WeatherEntity>()
+    private val _weatherEntity = MutableLiveData<WeatherEntity>()
     val weatherEntity: LiveData<WeatherEntity>
-        get() = _WeaterEntity
+        get() = _weatherEntity
 
     private val repository = WeatherRepositoryImpl()
 
@@ -27,17 +27,9 @@ class MainViewModel : ViewModel() {
     private val getWeatherInCurrentLocationTodayUseCase =
         GetWeatherInCurrentLocationTodayUseCase(repository)
 
-    private val getWeatherInCurrentLocationTomorrowUseCase =
-        GetWeatherInCurrentLocationTomorrowUseCase(repository)
 
-    private val getWeatherInCurrentLocationDayAfterTomorrowUseCase =
-        GetWeatherInCurrentLocationDayAfterTomorrowUseCase(repository)
-
-
-    fun loadWeather() {
+    fun loadWeather(location: Location) {
         viewModelScope.launch {
-            location.longitude = 39.7139
-            location.latitude = 47.2364
             Log.i(
                 "Weather-Response",
                 getWeatherInCurrentLocationTodayUseCase.invoke(location).toString()
