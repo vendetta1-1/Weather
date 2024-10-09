@@ -8,9 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vendetta.weather.data.repository.WeatherRepositoryImpl
 import com.vendetta.weather.domain.entity.WeatherEntity
-import com.vendetta.weather.domain.useCase.GetWeatherInCurrentLocationDayAfterTomorrowUseCase
 import com.vendetta.weather.domain.useCase.GetWeatherInCurrentLocationTodayUseCase
-import com.vendetta.weather.domain.useCase.GetWeatherInCurrentLocationTomorrowUseCase
 import kotlinx.coroutines.launch
 
 
@@ -22,20 +20,15 @@ class MainViewModel : ViewModel() {
 
     private val repository = WeatherRepositoryImpl()
 
-    private val location = Location("Rostov")
-
     private val getWeatherInCurrentLocationTodayUseCase =
         GetWeatherInCurrentLocationTodayUseCase(repository)
-
 
     fun loadWeather(location: Location) {
         viewModelScope.launch {
             Log.i(
                 "Weather-Response",
-                getWeatherInCurrentLocationTodayUseCase.invoke(location).toString()
+                getWeatherInCurrentLocationTodayUseCase(location).toString()
             )
         }
     }
-
-
 }

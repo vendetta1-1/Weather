@@ -22,88 +22,85 @@ import com.vendetta.weather.domain.entity.WeatherEntity
 class ModelToEntityMapper {
 
 
-    fun weatherModelToWeatherEntity(weatherModel: WeatherModel) =
-        WeatherEntity(
-            location = locationModelToLocationEntity(weatherModel.location),
-            current = currentModelToCurrentEntity(weatherModel.current),
-            forecast =  forecastModelToEntity(weatherModel.forecast)
-        )
+    fun weatherModelToEntity(weatherModel: WeatherModel) = WeatherEntity(
+        location = weatherModel.location.toEntity(),
+        current = weatherModel.current.toEntity(),
+        forecast = weatherModel.forecast.toEntity()
+    )
 
 
-    private fun astroModelToAstroEntity(astroModel: AstroModel) =
-        AstroEntity(
-            sunrise = astroModel.sunrise,
-            sunset = astroModel.sunset
-        )
+    private fun AstroModel.toEntity() = AstroEntity(
+        sunrise = this.sunrise,
+        sunset = this.sunset
+    )
 
 
-    private fun conditionModelToConditionEntity(conditionModel: ConditionModel) =
-        ConditionEntity(
-            text = conditionModel.text
-        )
+    private fun ConditionModel.toEntity() = ConditionEntity(
+        text = this.text
+    )
 
-    private fun currentModelToCurrentEntity(currentModel: CurrentModel) =
+    private fun CurrentModel.toEntity() =
         CurrentEntity(
-            lastUpdatedEpoch = currentModel.lastUpdatedEpoch,
-            lastUpdated = currentModel.lastUpdated,
-            tempC = currentModel.tempC,
-            condition = conditionModelToConditionEntity(currentModel.condition),
-            windKph = currentModel.windKph,
-            windDegree = currentModel.windDegree,
-            windDir = currentModel.windDir,
-            pressureMb = currentModel.pressureMb,
-            pressureIn = currentModel.pressureIn,
-            humidity = currentModel.humidity,
-            cloud = currentModel.cloud,
-            feelslikeC = currentModel.feelslikeC,
-            visKm = currentModel.visKm,
-            uv = currentModel.uv
+            lastUpdatedEpoch = this.lastUpdatedEpoch,
+            lastUpdated = this.lastUpdated,
+            tempC = this.tempC,
+            condition = this.condition.toEntity(),
+            windKph = this.windKph,
+            windDegree = this.windDegree,
+            windDir = this.windDir,
+            pressureMb = this.pressureMb,
+            pressureIn = this.pressureIn,
+            humidity = this.humidity,
+            cloud = this.cloud,
+            feelslikeC = this.feelslikeC,
+            visKm = this.visKm,
+            uv = this.uv
         )
 
-    private fun dayModelToDayEntity(dayModel: DayModel) =
+    private fun DayModel.toEntity() =
         DayEntity(
-            maxtempC = dayModel.maxtempC,
-            mintempC = dayModel.mintempC,
-            dailyWillItRain = dayModel.dailyWillItRain,
-            dailyChanceOfRain = dayModel.dailyChanceOfRain,
-            condition = conditionModelToConditionEntity(dayModel.condition),
-            uv = dayModel.uv
+            maxtempC = this.maxtempC,
+            mintempC = this.mintempC,
+            dailyWillItRain = this.dailyWillItRain,
+            dailyChanceOfRain = this.dailyChanceOfRain,
+            condition = this.condition.toEntity(),
+            uv = this.uv
         )
 
-    private fun forecastDayModelToForecastDayEntity(forecastDayModel: ForecastDayModel) =
+    private fun ForecastDayModel.toEntity() =
         ForecastDayEntity(
-            date = forecastDayModel.date,
-            dateEpoch = forecastDayModel.dateEpoch,
-            dayEntity = dayModelToDayEntity(forecastDayModel.day),
-            astro = astroModelToAstroEntity(forecastDayModel.astro),
-            hour = forecastDayModel.hour.map { hourModelToHourEntity(it) }
+            date = this.date,
+            dateEpoch = this.dateEpoch,
+            dayEntity = this.day.toEntity(),
+            astro = this.astro.toEntity(),
+            hour = this.hour.map { it.toEntity() }
 
         )
 
-    private fun hourModelToHourEntity(hourModel: HourModel) =
+    private fun HourModel.toEntity() =
         HourEntity(
-            timeEpoch = hourModel.timeEpoch,
-            time = hourModel.time,
-            tempC = hourModel.tempC,
-            condition = conditionModelToConditionEntity(hourModel.condition),
-            chanceOfRain = hourModel.chanceOfRain
+            timeEpoch = this.timeEpoch,
+            time = this.time,
+            tempC = this.tempC,
+            condition = this.condition.toEntity(),
+            chanceOfRain = this.chanceOfRain
         )
 
-    private fun forecastModelToEntity(forecastModel: ForecastModel) =
+    private fun ForecastModel.toEntity() =
         ForecastEntity(
-            forecastDay = forecastModel.forecastday.map { forecastDayModelToForecastDayEntity(it) }
+            forecastDay = this.forecastday.map { it.toEntity() }
         )
 
-    private fun locationModelToLocationEntity(locationModel: LocationModel) =
+    private fun LocationModel.toEntity() =
         LocationEntity(
-            name = locationModel.name,
-            region = locationModel.region,
-            country = locationModel.country,
-            lat = locationModel.lat,
-            lon = locationModel.lon,
-            tzId = locationModel.tzId,
-            localtimeEpoch = locationModel.localtimeEpoch,
-            localtime = locationModel.localtime
+            name = this.name,
+            region = this.region,
+            country = this.country,
+            lat = this.lat,
+            lon = this.lon,
+            tzId = this.tzId,
+            localtimeEpoch = this.localtimeEpoch,
+            localtime = this.localtime
         )
 
 

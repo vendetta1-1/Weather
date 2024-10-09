@@ -8,7 +8,7 @@ import java.time.LocalDate
 interface ApiService {
 
     companion object {
-        private const val API_KEY = "215d4f335ca94d4c8d2125219241703"
+        const val API_KEY = "215d4f335ca94d4c8d2125219241703"
     }
 
     @GET("forecast.json")
