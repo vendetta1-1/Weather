@@ -19,6 +19,7 @@ import com.google.android.gms.location.Priority
 import com.google.android.gms.tasks.CancellationToken
 import com.google.android.gms.tasks.CancellationTokenSource
 import com.google.android.gms.tasks.OnTokenCanceledListener
+import com.vendetta.weather.ui.content.MainScreen
 import com.vendetta.weather.ui.content.TwoMicroCardInRowPreview
 import com.vendetta.weather.ui.theme.WeatherTheme
 
@@ -36,39 +37,31 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
-
-        if (checkLocationPermission()) {
-            fusedLocationProviderClient.getCurrentLocation(
-                Priority.PRIORITY_HIGH_ACCURACY,
-                object : CancellationToken() {
-                    override fun onCanceledRequested(p0: OnTokenCanceledListener) =
-                        CancellationTokenSource().token
-
-                    override fun isCancellationRequested() = false
-                }
-            ).addOnSuccessListener {
-                if (it != null) {
-                    viewModel.loadWeather(it)
-                } else {
-                    showDialogueWindow()
-                }
-            }
-        } else {
-            showDialogueWindow()
-        }
-
         setContent {
+            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+
+            if (checkLocationPermission()) {
+                fusedLocationProviderClient.getCurrentLocation(
+                    Priority.PRIORITY_HIGH_ACCURACY,
+                    object : CancellationToken() {
+                        override fun onCanceledRequested(p0: OnTokenCanceledListener) =
+                            CancellationTokenSource().token
+
+                        override fun isCancellationRequested() = false
+                    }
+                ).addOnSuccessListener {
+                    if (it != null) {
+                        viewModel.loadWeather(it)
+                    } else {
+                        showDialogueWindow()
+                    }
+                }
+            } else {
+                showDialogueWindow()
+            }
             WeatherTheme {
                 WeatherTheme {
-                    Column(
-                        modifier = Modifier.fillMaxSize(),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Text(text = "hello world")
-                        TwoMicroCardInRowPreview()
-                    }
+                    MainScreen(viewModel)
                 }
             }
         }

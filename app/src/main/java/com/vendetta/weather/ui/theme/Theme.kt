@@ -16,7 +16,8 @@ private val LightColorScheme = lightColorScheme(
     onBackground = CardsPurple,
     primary = CardForecast,
     onPrimary = PurpleText,
-    onTertiary = PickedDayCard
+    onTertiary = PickedDayCard,
+    onSurface = progressBar
 )
 
 @Composable

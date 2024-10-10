@@ -43,7 +43,7 @@ fun MicroCard(
             )
     ) {
         Row(
-            verticalAlignment = Alignment.CenterVertically,
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
                 modifier = Modifier

@@ -25,6 +25,7 @@ class MainViewModel : ViewModel() {
 
     fun loadWeather(location: Location) {
         viewModelScope.launch {
+            _weatherEntity.value = getWeatherInCurrentLocationTodayUseCase(location)
             Log.i(
                 "Weather-Response",
                 getWeatherInCurrentLocationTodayUseCase(location).toString()

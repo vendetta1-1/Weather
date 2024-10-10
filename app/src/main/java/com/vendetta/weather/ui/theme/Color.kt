@@ -11,4 +11,5 @@ val PickedDayCard = Color(0xFFE0B6FF)
 val Background = Color(0xFFF6EDFF)
 val CardForecast = Color(0xFFEBDEFF)
 val PurpleText = Color(0xFF2E004E)
+val progressBar = Color(0xFF8A20D5)
 
