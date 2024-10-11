@@ -62,13 +62,13 @@ fun MicroCard(
                 Text(
                     text = stringResource(titleId),
                     color = Color.Black,
-                    style = MaterialTheme.typography.titleMedium
+                    style = MaterialTheme.typography.titleSmall
                 )
                 Spacer(modifier = Modifier.height(6.dp))
                 Text(
                     text = value,
                     color = Color.Black,
-                    style = MaterialTheme.typography.titleSmall
+                    style = MaterialTheme.typography.titleMedium
                 )
             }
         }
