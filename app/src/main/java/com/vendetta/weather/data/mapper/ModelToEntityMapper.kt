@@ -36,7 +36,8 @@ class ModelToEntityMapper {
 
 
     private fun ConditionModel.toEntity() = ConditionEntity(
-        text = this.text
+        text = this.text,
+        code = this.code
     )
 
     private fun CurrentModel.toEntity() =

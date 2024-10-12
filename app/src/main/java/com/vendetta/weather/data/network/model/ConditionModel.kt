@@ -5,9 +5,10 @@ import com.google.gson.annotations.SerializedName
 
 
 data class ConditionModel(
-
     @SerializedName("text")
     @Expose
-    val text: String
-
+    val text: String,
+    @SerializedName("code")
+    @Expose
+    val code: Int? = null,
 )
