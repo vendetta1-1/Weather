@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -58,7 +57,7 @@ fun ChanceOfRainCard(times: List<String>, chances: List<Int>) {
             Spacer(modifier = Modifier.width(8.dp))
             Text(
                 text = stringResource(R.string.chance_of_rain),
-                style = MaterialTheme.typography.titleMedium
+                style = MaterialTheme.typography.titleSmall
             )
         }
         Spacer(modifier = Modifier.height(8.dp))
@@ -70,14 +69,11 @@ fun ChanceOfRainCard(times: List<String>, chances: List<Int>) {
                     end = 11.dp
                 )
         ) {
-            if (times.isNotEmpty()) {
-                RainChanceUnit(times[5].takeLast(5), chances[5])
-                RainChanceUnit(times[11].takeLast(5), chances[11])
-                RainChanceUnit(times[17].takeLast(5), chances[17])
-                RainChanceUnit(times[23].takeLast(5), chances[23])
-            } else {
-                CircularProgressIndicator()
-            }
+            RainChanceUnit(times[5].takeLast(5), chances[5])
+            RainChanceUnit(times[11].takeLast(5), chances[11])
+            RainChanceUnit(times[17].takeLast(5), chances[17])
+            RainChanceUnit(times[23].takeLast(5), chances[23])
+
         }
     }
 }
@@ -95,17 +91,20 @@ fun RainChanceUnit(time: String, chance: Int) {
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Start
     ) {
-        Text(text = time, style = MaterialTheme.typography.titleSmall)
+        Text(text = time, style = MaterialTheme.typography.titleMedium)
         Spacer(modifier = Modifier.weight(1f))
         LinearProgressIndicator(
             modifier = Modifier
+                .fillMaxWidth(0.9f)
                 .height(12.dp),
             progress = { chance.toFloat() / 100 },
             color = MaterialTheme.colorScheme.onSurface,
+            trackColor = MaterialTheme.colorScheme.surface,
             gapSize = (-4).dp,
-            drawStopIndicator = {}
-        )
+            drawStopIndicator = {},
+
+            )
         Spacer(modifier = Modifier.weight(1f))
-        Text(text = "$chance%", style = MaterialTheme.typography.titleSmall)
+        Text(text = "$chance%", style = MaterialTheme.typography.titleMedium)
     }
 }

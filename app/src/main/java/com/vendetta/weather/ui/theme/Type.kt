@@ -11,7 +11,7 @@ import com.vendetta.weather.R
 
 val Typography = Typography(
     //title on MicroCard
-    titleSmall = TextStyle(
+    titleMedium = TextStyle(
         fontSize = 14.sp,
         lineHeight = 20.sp,
         fontStyle = FontStyle.Normal,
@@ -24,11 +24,17 @@ val Typography = Typography(
         fontWeight = FontWeight(400)
     ),
     // value on MicroCard
-    titleMedium = TextStyle(
+    titleSmall = TextStyle(
         fontSize = 16.sp,
         lineHeight = 24.sp,
         fontFamily = FontFamily(Font(R.font.product_sans)),
         fontWeight = FontWeight(400),
         letterSpacing = 0.15.sp,
+    ),
+    titleLarge = TextStyle(
+        fontSize = 15.sp,
+        lineHeight = 28.sp,
+        fontFamily = FontFamily(Font(R.font.product_sans)),
+        fontWeight = FontWeight(400)
     )
 )

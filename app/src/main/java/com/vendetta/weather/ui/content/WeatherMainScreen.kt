@@ -20,36 +20,41 @@ fun MainScreen(
 ) {
     val weatherEntity = viewModel.weatherEntity.observeAsState()
 
-    Column {
-        Text(
-            text = weatherEntity.value?.location?.name.toString() + "," +
-                    weatherEntity.value?.location?.country.toString()
-        )
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(4.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            MicroCard(
-                modifier = Modifier.fillMaxWidth(0.5f),
-                imageId = R.drawable.sunset,
-                titleId = R.string.sunset,
-                value = weatherEntity.value?.forecast?.forecastDay[0]?.astro?.sunset.toString()
+    if (weatherEntity.value == null) {
+        LoadingIndicator()
+    } else {
+        val weatherEntityValue = weatherEntity.value!!
+        Column {
+            Text(
+                text = weatherEntityValue.location.name.toString() + "," +
+                        weatherEntityValue.location.country.toString()
             )
-            MicroCard(
-                modifier = Modifier.fillMaxWidth(),
-                imageId = R.drawable.sunrise,
-                titleId = R.string.sunrise,
-                value = weatherEntity.value?.forecast?.forecastDay[0]?.astro?.sunrise.toString()
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(4.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                MicroCard(
+                    modifier = Modifier.fillMaxWidth(0.5f),
+                    imageId = R.drawable.sunset,
+                    titleId = R.string.sunset,
+                    value = weatherEntityValue.forecast.forecastDay[0].astro.sunset.toString()
+                )
+                MicroCard(
+                    modifier = Modifier.fillMaxWidth(),
+                    imageId = R.drawable.sunrise,
+                    titleId = R.string.sunrise,
+                    value = weatherEntityValue.forecast.forecastDay[0].astro.sunrise.toString()
+                )
+            }
+            ChanceOfRainCard(
+                times = weatherEntityValue.forecast.forecastDay[0].hour.map { it.time },
+                chances = weatherEntityValue.forecast.forecastDay[0].hour.map { it.chanceOfRain }
             )
         }
-        ChanceOfRainCard(
-            times = weatherEntity.value?.forecast?.forecastDay[0]?.hour?.map { it.time }
-                ?: listOf(),
-            chances = weatherEntity.value?.forecast?.forecastDay[0]?.hour?.map { it.chanceOfRain }
-                ?: listOf()
-        )
     }
-
 }
+
+
+

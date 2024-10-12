@@ -12,12 +12,13 @@ private val DarkColorScheme = darkColorScheme(
 )
 
 private val LightColorScheme = lightColorScheme(
-    background = Background,
-    onBackground = CardsPurple,
-    primary = CardForecast,
-    onPrimary = PurpleText,
-    onTertiary = PickedDayCard,
-    onSurface = progressBar
+    background = BackgroundLight,
+    onBackground = CardsPurpleLight,
+    primary = CardForecastLight,
+    onPrimary = PurpleTextLight,
+    onTertiary = PickedDayCardLight,
+    onSurface = progressBarLight,
+    surface = trackColorLight
 )
 
 @Composable
