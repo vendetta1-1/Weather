@@ -3,15 +3,13 @@ package com.vendetta.weather.ui.theme
 import androidx.compose.ui.graphics.Color
 
 //DarkTheme
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
+val mainTextDark = Color(0xFFFFFFFF)
+val secondaryTextDark = Color(0xFF616161)
+val backgroundDark = Color.Black
 
 //LightTheme
-val CardsPurpleLight = Color(0xFFE0D2FF)
-val PickedDayCardLight = Color(0xFFE0B6FF)
-val BackgroundLight = Color(0xFFF6EDFF)
-val CardForecastLight = Color(0xFFEBDEFF)
-val PurpleTextLight = Color(0xFF2E004E)
-val progressBarLight = Color(0xFF8A20D5)
-val trackColorLight = Color(0xFFFAEDFF)
+val mainTextLight = Color(0xFF000000)
+val secondaryTextLight = Color(0xFF616161)
+val backgroundLight = Color.White
+
 

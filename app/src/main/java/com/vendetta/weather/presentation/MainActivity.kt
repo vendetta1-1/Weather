@@ -13,7 +13,7 @@ import com.google.android.gms.location.Priority
 import com.google.android.gms.tasks.CancellationToken
 import com.google.android.gms.tasks.CancellationTokenSource
 import com.google.android.gms.tasks.OnTokenCanceledListener
-import com.vendetta.weather.ui.content.MainScreen
+import com.vendetta.weather.ui.content.WeatherScreen
 import com.vendetta.weather.ui.theme.WeatherTheme
 
 class MainActivity : ComponentActivity() {
@@ -54,7 +54,7 @@ class MainActivity : ComponentActivity() {
             }
             WeatherTheme {
                 WeatherTheme {
-                    MainScreen(viewModel)
+                    WeatherScreen(viewModel, true)
                 }
             }
         }

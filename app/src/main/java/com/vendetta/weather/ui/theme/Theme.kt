@@ -7,18 +7,15 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 
 private val DarkColorScheme = darkColorScheme(
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+    background = backgroundDark,
+    onBackground = mainTextDark,
+    secondary = secondaryTextDark
 )
 
 private val LightColorScheme = lightColorScheme(
-    background = BackgroundLight,
-    onBackground = CardsPurpleLight,
-    primary = CardForecastLight,
-    onPrimary = PurpleTextLight,
-    onTertiary = PickedDayCardLight,
-    onSurface = progressBarLight,
-    surface = trackColorLight
+    background = backgroundLight,
+    onBackground = mainTextLight,
+    secondary = secondaryTextLight
 )
 
 @Composable
