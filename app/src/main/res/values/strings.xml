@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Weather</string>
+    <!--statistics-->
     <string name="wind_speed">Wind speed</string>
     <string name="pressure">Pressure</string>
     <string name="rain_chance">Rain chance</string>
@@ -8,4 +9,25 @@
     <string name="sunrise">Sunrise</string>
     <string name="sunset">Sunset</string>
     <string name="chance_of_rain">Chance of rain</string>
+    <!--days of week-->
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+    <!--months-->
+    <string name="december">December</string>
+    <string name="january">January</string>
+    <string name="february">February</string>
+    <string name="march">March</string>
+    <string name="april">April</string>
+    <string name="may">May</string>
+    <string name="june">June</string>
+    <string name="july">July</string>
+    <string name="august">August</string>
+    <string name="september">September</string>
+    <string name="october">October</string>
+    <string name="november">November</string>
 </resources>
