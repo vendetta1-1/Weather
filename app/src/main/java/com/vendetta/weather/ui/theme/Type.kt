@@ -42,6 +42,18 @@ val Typography = Typography(
     labelLarge = TextStyle(
         fontSize = 96.sp,
         lineHeight = 1.sp,
+        letterSpacing = 0.sp,
+        fontFamily = FontFamily(
+            Font(
+                R.font.ubuntu_condensed
+            )
+        ),
+        fontWeight = FontWeight(400)
+    ),
+    labelMedium = TextStyle(
+        fontSize = 36.sp,
+        lineHeight = 1.sp,
+        letterSpacing = 0.sp,
         fontFamily = FontFamily(
             Font(
                 R.font.ubuntu_condensed
