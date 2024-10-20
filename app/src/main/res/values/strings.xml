@@ -10,6 +10,7 @@
     <string name="sunrise">Sunrise</string>
     <string name="sunset">Sunset</string>
     <string name="chance_of_rain">Chance of rain</string>
+    <string name="gradus_celsius">°C</string>
     <!--days of week-->
     <string name="monday">Monday</string>
     <string name="tuesday">Tuesday</string>

@@ -49,8 +49,6 @@ fun WeatherScreen(
                     minTempC = weatherEntityValue.forecast.forecastDay[0].dayEntity.mintempC,
                     maxTempC = weatherEntityValue.forecast.forecastDay[0].dayEntity.maxtempC
                 )
-
-
             }
         }
     }

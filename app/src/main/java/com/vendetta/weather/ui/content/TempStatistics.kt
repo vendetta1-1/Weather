@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -34,7 +35,8 @@ fun TempStatistics(
         modifier = Modifier
             .background(MaterialTheme.colorScheme.background)
             .padding(top = 4.dp),
-        verticalArrangement = Arrangement.Center
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
     ) {
         Row(
             modifier = Modifier
@@ -63,7 +65,7 @@ fun TempStatistics(
                             fontWeight = MaterialTheme.typography.labelMedium.fontWeight
                         )
                     ) {
-                        append("°C")
+                        append(stringResource(R.string.gradus_celsius))
                     }
 
                 },
@@ -85,7 +87,7 @@ fun TempStatistics(
             resId = R.drawable.arrow_down,
             value = minTempC
         )
-        Spacer(modifier = Modifier.width(25.dp))
+        Spacer(modifier = Modifier.width(32.dp))
         ArrowWithText(
             resId = R.drawable.arrow_up,
             value = maxTempC

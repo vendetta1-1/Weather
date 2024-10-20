@@ -30,28 +30,29 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContent {
-            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
-            if (checkLocationPermission()) {
-                fusedLocationProviderClient.getCurrentLocation(
-                    Priority.PRIORITY_HIGH_ACCURACY,
-                    object : CancellationToken() {
-                        override fun onCanceledRequested(p0: OnTokenCanceledListener) =
-                            CancellationTokenSource().token
+        if (checkLocationPermission()) {
+            fusedLocationProviderClient.getCurrentLocation(
+                Priority.PRIORITY_HIGH_ACCURACY,
+                object : CancellationToken() {
+                    override fun onCanceledRequested(p0: OnTokenCanceledListener) =
+                        CancellationTokenSource().token
 
-                        override fun isCancellationRequested() = false
-                    }
-                ).addOnSuccessListener {
-                    if (it != null) {
-                        viewModel.loadWeather(it)
-                    } else {
-                        showDialogueWindow()
-                    }
+                    override fun isCancellationRequested() = false
                 }
-            } else {
-                showDialogueWindow()
+            ).addOnSuccessListener {
+                if (it != null) {
+                    viewModel.loadWeather(it)
+                } else {
+                    showDialogueWindow()
+                }
             }
+        } else {
+            showDialogueWindow()
+        }
+
+        setContent {
             WeatherTheme {
                 WeatherTheme {
                     WeatherScreen(viewModel, true)
