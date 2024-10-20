@@ -19,7 +19,7 @@ fun WeatherScreen(
     val weatherEntity = viewModel.weatherEntity.observeAsState()
 
     if (weatherEntity.value == null) {
-        LoadingIndicator()
+        StartScreen()
     } else {
         val weatherEntityValue = weatherEntity.value!!
         Scaffold(
