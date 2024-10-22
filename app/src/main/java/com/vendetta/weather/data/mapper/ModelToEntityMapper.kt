@@ -60,8 +60,8 @@ class ModelToEntityMapper {
 
     private fun DayModel.toEntity() =
         DayEntity(
-            maxtempC = this.maxtempC,
-            mintempC = this.mintempC,
+            maxTempC = this.maxTempC,
+            minTempC = this.minTempC,
             dailyWillItRain = this.dailyWillItRain,
             dailyChanceOfRain = this.dailyChanceOfRain,
             condition = this.condition.toEntity(),

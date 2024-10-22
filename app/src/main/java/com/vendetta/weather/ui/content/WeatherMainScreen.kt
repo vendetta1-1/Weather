@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -33,7 +34,8 @@ fun WeatherScreen(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(top = it.calculateTopPadding() + 50.dp)
+                    .padding(top = it.calculateTopPadding() + 50.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
 
             ) {
                 with(viewModel) {
@@ -46,8 +48,8 @@ fun WeatherScreen(
                 }
                 TempStatistics(
                     currentTempC = weatherEntityValue.current.tempC,
-                    minTempC = weatherEntityValue.forecast.forecastDay[0].dayEntity.mintempC,
-                    maxTempC = weatherEntityValue.forecast.forecastDay[0].dayEntity.maxtempC
+                    minTempC = weatherEntityValue.forecast.forecastDay[0].dayEntity.minTempC,
+                    maxTempC = weatherEntityValue.forecast.forecastDay[0].dayEntity.maxTempC
                 )
             }
         }

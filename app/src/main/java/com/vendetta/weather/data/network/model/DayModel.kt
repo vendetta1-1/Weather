@@ -8,10 +8,10 @@ data class DayModel(
 
     @SerializedName("maxtemp_c")
     @Expose
-    val maxtempC: Double,
+    val maxTempC: Double,
     @SerializedName("mintemp_c")
     @Expose
-    val mintempC: Double,
+    val minTempC: Double,
     @SerializedName("daily_will_it_rain")
     @Expose
     val dailyWillItRain: Int,
