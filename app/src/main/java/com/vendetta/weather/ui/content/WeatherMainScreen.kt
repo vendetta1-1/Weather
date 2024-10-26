@@ -1,7 +1,9 @@
 package com.vendetta.weather.ui.content
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -50,6 +52,14 @@ fun WeatherScreen(
                     currentTempC = weatherEntityValue.current.tempC,
                     minTempC = weatherEntityValue.forecast.forecastDay[0].dayEntity.minTempC,
                     maxTempC = weatherEntityValue.forecast.forecastDay[0].dayEntity.maxTempC
+                )
+                Spacer(
+                    modifier = Modifier
+                        .height(64.dp)
+                )
+                ConditionHeader(
+                    text = weatherEntityValue.current.condition.text,
+                    code = weatherEntityValue.current.condition.code
                 )
             }
         }

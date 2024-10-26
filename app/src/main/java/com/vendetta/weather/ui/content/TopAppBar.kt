@@ -18,8 +18,9 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.vendetta.weather.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -42,7 +43,7 @@ fun WeatherTopAppBar(city: String, isCurrentLocation: Boolean) {
                             .height(6.dp)
                     )
                     Text(
-                        text = "Current Location",
+                        text = stringResource(R.string.current_location),
                         style = MaterialTheme.typography.titleSmall,
                         color = MaterialTheme.colorScheme.secondary
                     )
@@ -65,6 +66,6 @@ fun WeatherTopAppBar(city: String, isCurrentLocation: Boolean) {
                 )
             }
         },
-        colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Transparent)
+        colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background)
     )
 }

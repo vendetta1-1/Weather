@@ -10,5 +10,5 @@ data class ConditionModel(
     val text: String,
     @SerializedName("code")
     @Expose
-    val code: Int? = null,
+    val code: Int
 )
