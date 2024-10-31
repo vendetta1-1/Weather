@@ -1,8 +1,11 @@
 package com.vendetta.weather.ui.content
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -11,20 +14,20 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.lifecycle.LiveData
+import com.vendetta.weather.R
+import com.vendetta.weather.domain.entity.WeatherEntity
 import com.vendetta.weather.presentation.MainViewModel
 
 @Composable
 fun WeatherScreen(
-    viewModel: MainViewModel = viewModel(),
+    weatherEntity: LiveData<WeatherEntity>,
     isCurrentLocation: Boolean
 ) {
-    val weatherEntity = viewModel.weatherEntity.observeAsState()
-
-    if (weatherEntity.value == null) {
+    if (weatherEntity.observeAsState().value == null) {
         StartScreen()
     } else {
-        val weatherEntityValue = weatherEntity.value!!
+        val weatherEntityValue = weatherEntity.observeAsState().value!!
         Scaffold(
             topBar = {
                 WeatherTopAppBar(
@@ -40,7 +43,7 @@ fun WeatherScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
 
             ) {
-                with(viewModel) {
+                with(MainViewModel) {
                     DateHeader(
                         dayOfWeekResource = getDayOfWeek(),
                         monthResource = getMonth(),
@@ -61,6 +64,24 @@ fun WeatherScreen(
                     text = weatherEntityValue.current.condition.text,
                     code = weatherEntityValue.current.condition.code
                 )
+                Spacer(
+                    modifier = Modifier
+                        .height(20.dp)
+                )
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    MicroStatistic(
+                        imageResId = R.drawable.pressure,
+                        value = weatherEntityValue.current.pressureMb.toString()
+                    )
+                    MicroStatistic(
+                        imageResId = R.drawable.humidity,
+                        value = weatherEntityValue.current.humidity.toString()
+                    )
+                }
             }
         }
     }

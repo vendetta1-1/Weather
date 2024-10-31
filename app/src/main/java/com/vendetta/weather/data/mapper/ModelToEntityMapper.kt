@@ -18,8 +18,9 @@ import com.vendetta.weather.domain.entity.ForecastEntity
 import com.vendetta.weather.domain.entity.HourEntity
 import com.vendetta.weather.domain.entity.LocationEntity
 import com.vendetta.weather.domain.entity.WeatherEntity
+import javax.inject.Inject
 
-class ModelToEntityMapper {
+class ModelToEntityMapper @Inject constructor() {
 
 
     fun weatherModelToEntity(weatherModel: WeatherModel) = WeatherEntity(
@@ -53,7 +54,7 @@ class ModelToEntityMapper {
             pressureIn = this.pressureIn,
             humidity = this.humidity,
             cloud = this.cloud,
-            feelslikeC = this.feelslikeC,
+            feelsLikeC = this.feelslikeC,
             visKm = this.visKm,
             uv = this.uv
         )

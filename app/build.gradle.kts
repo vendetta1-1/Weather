@@ -2,18 +2,15 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.compose.compiler)
-    id ("kotlin-kapt")
-
+    alias(libs.plugins.ksp)
 }
-
 android {
     namespace = "com.vendetta.weather"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.vendetta.weather"
         minSdk = 29
-        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -52,13 +49,12 @@ android {
     }
 
 }
-
 dependencies {
     //location
     implementation(libs.play.services.location)
     //dependency injection
     implementation(libs.dagger)
-    kapt(libs.dagger.compiler)
+    ksp(libs.dagger.compiler)
     //retrofit
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)

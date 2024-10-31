@@ -2,16 +2,16 @@ package com.vendetta.weather.data.repository
 
 import android.location.Location
 import com.vendetta.weather.data.mapper.ModelToEntityMapper
-import com.vendetta.weather.data.network.ApiFactory
+import com.vendetta.weather.data.network.ApiService
 import com.vendetta.weather.domain.entity.WeatherEntity
 import com.vendetta.weather.domain.repository.WeatherRepository
+import javax.inject.Inject
 
 
-class WeatherRepositoryImpl : WeatherRepository {
-
-    private val apiService = ApiFactory.apiService
-
-    private val mapper = ModelToEntityMapper()
+class WeatherRepositoryImpl @Inject constructor(
+    val apiService: ApiService,
+    val mapper: ModelToEntityMapper
+) : WeatherRepository {
 
     override suspend fun getWeatherInCurrentLocationToday(location: Location): WeatherEntity {
         return mapper.weatherModelToEntity(

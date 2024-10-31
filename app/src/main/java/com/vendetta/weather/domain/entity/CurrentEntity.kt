@@ -13,7 +13,7 @@ data class CurrentEntity(
     val pressureIn: Double,
     val humidity: Int,
     val cloud: Int,
-    val feelslikeC: Double,
+    val feelsLikeC: Double,
     val visKm: Int,
     val uv: Double
 
