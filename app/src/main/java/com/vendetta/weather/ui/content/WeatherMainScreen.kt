@@ -66,7 +66,7 @@ fun WeatherScreen(
                 )
                 Spacer(
                     modifier = Modifier
-                        .height(20.dp)
+                        .height(60.dp)
                 )
                 Row(
                     modifier = Modifier
