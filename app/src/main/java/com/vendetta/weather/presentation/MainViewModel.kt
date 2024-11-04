@@ -18,7 +18,6 @@ import com.google.android.gms.tasks.CancellationToken
 import com.google.android.gms.tasks.CancellationTokenSource
 import com.google.android.gms.tasks.OnTokenCanceledListener
 import com.vendetta.weather.R
-import com.vendetta.weather.data.repository.WeatherRepositoryImpl
 import com.vendetta.weather.domain.entity.WeatherEntity
 import com.vendetta.weather.domain.useCase.GetWeatherInCurrentLocationDayAfterTomorrowUseCase
 import com.vendetta.weather.domain.useCase.GetWeatherInCurrentLocationTodayUseCase
@@ -28,7 +27,6 @@ import java.util.Calendar
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
-    val repository: WeatherRepositoryImpl,
     val getWeatherInCurrentLocationTodayUseCase: GetWeatherInCurrentLocationTodayUseCase,
     val getWeatherInCurrentLocationTomorrowUseCase: GetWeatherInCurrentLocationTomorrowUseCase,
     val getWeatherInCurrentLocationDayAfterTomorrowUseCase: GetWeatherInCurrentLocationDayAfterTomorrowUseCase

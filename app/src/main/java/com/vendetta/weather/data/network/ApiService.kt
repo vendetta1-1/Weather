@@ -17,7 +17,6 @@ interface ApiService {
         @Query("q") coordinates: String, //format : Latitude,Longitude
         @Query("key") apiKey: String = API_KEY,
         @Query("lang") language: String = Locale.getDefault().language
-
     ): WeatherModel
 
     @GET("forecast.json")
