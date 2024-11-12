@@ -1,10 +1,10 @@
-package com.vendetta.weather.data.network.model
+package com.vendetta.weather.data.network.dto
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 
-data class DayModel(
+data class DayDto(
 
     @SerializedName("maxtemp_c")
     @Expose
@@ -20,7 +20,7 @@ data class DayModel(
     val dailyChanceOfRain: Int,
     @SerializedName("condition")
     @Expose
-    val condition: ConditionModel,
+    val condition: ConditionDto,
     @SerializedName("uv")
     @Expose
     val uv: Double

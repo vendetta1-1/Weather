@@ -1,19 +1,19 @@
-package com.vendetta.weather.data.network.model
+package com.vendetta.weather.data.network.dto
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 
-data class WeatherModel(
+data class WeatherDto(
 
     @SerializedName("location")
     @Expose
-    val location: LocationModel,
+    val location: LocationDto,
     @SerializedName("current")
     @Expose
-    val current: CurrentModel,
+    val current: CurrentDto,
     @SerializedName("forecast")
     @Expose
-    val forecast: ForecastModel
+    val forecast: ForecastDto
 
 )

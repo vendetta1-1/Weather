@@ -1,10 +1,10 @@
-package com.vendetta.weather.data.network.model
+package com.vendetta.weather.data.network.dto
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 
-data class HourModel(
+data class HourDto(
 
     @SerializedName("time_epoch")
     @Expose
@@ -17,7 +17,7 @@ data class HourModel(
     val tempC: Double,
     @SerializedName("condition")
     @Expose
-    val condition: ConditionModel,
+    val condition: ConditionDto,
     @SerializedName("chance_of_rain")
     @Expose
     val chanceOfRain: Int

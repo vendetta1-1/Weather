@@ -1,10 +1,10 @@
-package com.vendetta.weather.data.network.model
+package com.vendetta.weather.data.network.dto
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 
-data class CurrentModel(
+data class CurrentDto(
 
     @SerializedName("last_updated_epoch")
     @Expose
@@ -17,7 +17,7 @@ data class CurrentModel(
     val tempC: Double,
     @SerializedName("condition")
     @Expose
-    val condition: ConditionModel,
+    val condition: ConditionDto,
     @SerializedName("wind_kph")
     @Expose
     val windKph: Double,

@@ -1,10 +1,10 @@
-package com.vendetta.weather.data.network.model
+package com.vendetta.weather.data.network.dto
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 
-data class ForecastDayModel(
+data class ForecastDayDto(
 
     @SerializedName("date")
     @Expose
@@ -14,12 +14,12 @@ data class ForecastDayModel(
     val dateEpoch: Int,
     @SerializedName("day")
     @Expose
-    val day: DayModel,
+    val day: DayDto,
     @SerializedName("astro")
     @Expose
-    val astro: AstroModel,
+    val astro: AstroDto,
     @SerializedName("hour")
     @Expose
-    val hour: List<HourModel>
+    val hour: List<HourDto>
 
 )
