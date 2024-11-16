@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.vendetta.weather.WeatherApp
-import com.vendetta.weather.ui.content.WeatherScreen
+import com.vendetta.weather.ui.content.MainScreen
 import com.vendetta.weather.ui.theme.WeatherTheme
 import javax.inject.Inject
 
@@ -36,7 +36,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             WeatherTheme {
-                WeatherScreen(viewModel.currentWeatherEntity, true)
+                MainScreen(viewModel)
             }
         }
     }

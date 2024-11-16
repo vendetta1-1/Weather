@@ -27,9 +27,9 @@ import java.util.Calendar
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
-    val getWeatherInCurrentLocationTodayUseCase: GetWeatherInCurrentLocationTodayUseCase,
-    val getWeatherInCurrentLocationTomorrowUseCase: GetWeatherInCurrentLocationTomorrowUseCase,
-    val getWeatherInCurrentLocationDayAfterTomorrowUseCase: GetWeatherInCurrentLocationDayAfterTomorrowUseCase
+    private val getWeatherInCurrentLocationTodayUseCase: GetWeatherInCurrentLocationTodayUseCase,
+    private val getWeatherInCurrentLocationTomorrowUseCase: GetWeatherInCurrentLocationTomorrowUseCase,
+    private val getWeatherInCurrentLocationDayAfterTomorrowUseCase: GetWeatherInCurrentLocationDayAfterTomorrowUseCase
 ) : ViewModel() {
 
     private val _currentWeatherEntity = MutableLiveData<WeatherEntity>()
@@ -70,7 +70,7 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    val permissions = arrayOf(
+    private val permissions = arrayOf(
         Manifest.permission.ACCESS_FINE_LOCATION,
         Manifest.permission.ACCESS_COARSE_LOCATION
     )

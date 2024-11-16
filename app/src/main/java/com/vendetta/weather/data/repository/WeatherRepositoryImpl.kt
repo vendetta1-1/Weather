@@ -9,8 +9,8 @@ import javax.inject.Inject
 
 
 class WeatherRepositoryImpl @Inject constructor(
-    val apiService: ApiService,
-    val mapper: ModelToEntityMapper
+    private val apiService: ApiService,
+    private val mapper: ModelToEntityMapper
 ) : WeatherRepository {
 
     override suspend fun getWeatherInCurrentLocationToday(location: Location): WeatherEntity {

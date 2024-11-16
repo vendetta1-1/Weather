@@ -24,7 +24,10 @@ import com.vendetta.weather.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun WeatherTopAppBar(city: String, isCurrentLocation: Boolean) {
+fun WeatherTopAppBar(
+    city: String,
+    isCurrentLocation: Boolean
+) {
     TopAppBar(
         modifier = Modifier.padding(top = 70.dp),
         title = {
