@@ -5,5 +5,4 @@ data class ForecastDayEntity(
     val dateEpoch: Int,
     val dayEntity: DayEntity,
     val astro: AstroEntity,
-    val hour: List<HourEntity>
 )

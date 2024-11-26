@@ -11,10 +11,11 @@ interface WeatherRepository {
 
     suspend fun getWeatherInCurrentLocationDayAfterTomorrow(location: Location): WeatherEntity
 
-    suspend fun getWeatherInCityPeakedByUserToday(location: Location): WeatherEntity
+    suspend fun getWeatherInCityPeakedByUserToday(city: String): WeatherEntity
 
-    suspend fun getWeatherInCityPeakedByUserTomorrow(location: Location): WeatherEntity
+    suspend fun getWeatherInCityPeakedByUserTomorrow(city: String): WeatherEntity
 
-    suspend fun getWeatherInCityPeakedByUserDayAfterTomorrow(location: Location): WeatherEntity
+    suspend fun getWeatherInCityPeakedByUserDayAfterTomorrow(city: String): WeatherEntity
 
+    suspend fun getWeatherInCitiesFromDB(): List<WeatherEntity>
 }

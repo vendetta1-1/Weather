@@ -4,10 +4,10 @@ import com.vendetta.weather.domain.entity.WeatherEntity
 import com.vendetta.weather.domain.repository.WeatherRepository
 import javax.inject.Inject
 
-class GetWeatherInCityPeakedByUserDayAfterTomorrowUseCase @Inject constructor(
+class GetWeatherInCitiesFromDBUseCase @Inject constructor(
     private val repository: WeatherRepository
 ) {
-    suspend operator fun invoke(city: String): WeatherEntity {
-        return repository.getWeatherInCityPeakedByUserDayAfterTomorrow(city)
+    suspend operator fun invoke(): List<WeatherEntity> {
+        return repository.getWeatherInCitiesFromDB()
     }
 }

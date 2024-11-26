@@ -34,4 +34,6 @@ interface ApiService {
         @Query("dt") day: String = LocalDate.now().plusDays(2).toString(),
         @Query("lang") language: String = Locale.getDefault().language
     ): WeatherDto
+
+
 }

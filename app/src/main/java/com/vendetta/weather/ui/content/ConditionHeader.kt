@@ -43,7 +43,7 @@ fun ConditionHeader(
     }
 }
 
-private fun getConditionImage(code: Int): Int {
+fun getConditionImage(code: Int): Int {
     return when (code) {
         1000 -> R.drawable.sunny
         1003 -> R.drawable.partly_cloudy
