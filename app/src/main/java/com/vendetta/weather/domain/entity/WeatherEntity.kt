@@ -3,7 +3,7 @@ package com.vendetta.weather.domain.entity
 data class WeatherEntity(
     val location: LocationEntity,
     val current: CurrentEntity,
-    val forecast: ForecastEntity
+    val forecastDay: ForecastDayEntity
 ) {
     companion object {
         val defaultValue= WeatherEntity(
@@ -33,8 +33,24 @@ data class WeatherEntity(
                 visKm = 0,
                 uv = 0.0
             ),
-            forecast = ForecastEntity(
-                forecastDay = listOf()
+            forecastDay = ForecastDayEntity(
+                date = "",
+                dateEpoch = 0,
+                dayEntity = DayEntity(
+                    maxTempC = 0.0,
+                    minTempC = 0.0,
+                    dailyChanceOfRain = 0,
+                    condition = ConditionEntity(
+                        text = "",
+                        code = 0
+                    ),
+                    uv = 0.0,
+                    dailyWillItRain = 0
+                ),
+                astro = AstroEntity(
+                    sunset = "",
+                    sunrise = ""
+                )
             )
         )
     }

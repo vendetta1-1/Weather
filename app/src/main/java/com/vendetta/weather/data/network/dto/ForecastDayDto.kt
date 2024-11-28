@@ -17,9 +17,5 @@ data class ForecastDayDto(
     val day: DayDto,
     @SerializedName("astro")
     @Expose
-    val astro: AstroDto,
-    @SerializedName("hour")
-    @Expose
-    val hour: List<HourDto>
-
+    val astro: AstroDto
 )
