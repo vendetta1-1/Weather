@@ -8,7 +8,7 @@ import javax.inject.Inject
 class GetWeatherInCityPeakedByUserTomorrowUseCase @Inject constructor(
     private val repository: WeatherRepository
 ) {
-    suspend operator fun invoke(location: Location): WeatherEntity {
-        return repository.getWeatherInCityPeakedByUserTomorrow(location)
+    suspend operator fun invoke(city:String): WeatherEntity {
+        return repository.getWeatherInCityPeakedByUserTomorrow(city)
     }
 }

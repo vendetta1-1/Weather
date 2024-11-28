@@ -13,7 +13,7 @@ import javax.inject.Inject
 class MainActivity : ComponentActivity() {
 
     private val component by lazy {
-        (applicationContext as WeatherApp).applicationComponent
+        (application as WeatherApp).applicationComponent
     }
 
     @Inject

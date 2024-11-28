@@ -40,8 +40,8 @@ fun WeatherScreen(
         }
         TempStatistics(
             currentTempC = weatherEntity.value.current.tempC,
-            minTempC = weatherEntity.value.forecast.forecastDay[0].dayEntity.minTempC,
-            maxTempC = weatherEntity.value.forecast.forecastDay[0].dayEntity.maxTempC
+            minTempC = weatherEntity.value.forecastDay.dayEntity.minTempC,
+            maxTempC = weatherEntity.value.forecastDay.dayEntity.maxTempC
         )
         Spacer(
             modifier = Modifier

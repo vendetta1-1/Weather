@@ -50,6 +50,10 @@ android {
 
 }
 dependencies {
+    //room database
+    implementation(libs.androidx.room.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
     //location
     implementation(libs.play.services.location)
     //dependency injection
