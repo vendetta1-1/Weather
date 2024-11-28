@@ -16,7 +16,6 @@ class WeatherRepositoryImpl @Inject constructor(
         return apiService.loadWeatherToday(
             formatLocation(location)
         ).toEntity()
-
     }
 
     override suspend fun getWeatherInCurrentLocationTomorrow(location: Location): WeatherEntity {
@@ -27,6 +26,27 @@ class WeatherRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getWeatherInCurrentLocationDayAfterTomorrow(location: Location): WeatherEntity {
+        return apiService.loadWeatherDayAfterTomorrow(
+            formatLocation(location)
+        ).toEntity()
+
+    }
+
+    override suspend fun getWeatherInCityPeakedByUserToday(location: Location): WeatherEntity {
+        return apiService.loadWeatherToday(
+            formatLocation(location)
+        ).toEntity()
+
+    }
+
+    override suspend fun getWeatherInCityPeakedByUserTomorrow(location: Location): WeatherEntity {
+        return apiService.loadWeatherTomorrow(
+            formatLocation(location)
+        ).toEntity()
+
+    }
+
+    override suspend fun getWeatherInCityPeakedByUserDayAfterTomorrow(location: Location): WeatherEntity {
         return apiService.loadWeatherDayAfterTomorrow(
             formatLocation(location)
         ).toEntity()
@@ -47,12 +67,7 @@ class WeatherRepositoryImpl @Inject constructor(
         return apiService.loadWeatherDayAfterTomorrow(city).toEntity()
 
     }
-
-    override suspend fun getWeatherInCitiesFromDB(): List<WeatherEntity> {
-        TODO("Not yet implemented")
-    }
-
-
+    
     private fun formatLocation(location: Location): String {
         return "${location.latitude},${location.longitude}"
     }
