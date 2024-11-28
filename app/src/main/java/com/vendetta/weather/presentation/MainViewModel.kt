@@ -2,12 +2,10 @@ package com.vendetta.weather.presentation
 
 import android.Manifest
 import android.app.Activity
-import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
 import android.util.Log
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -27,6 +25,7 @@ import java.util.Calendar
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
+    private val fusedLocationProviderClient: FusedLocationProviderClient,
     private val getWeatherInCurrentLocationTodayUseCase: GetWeatherInCurrentLocationTodayUseCase,
     private val getWeatherInCurrentLocationTomorrowUseCase: GetWeatherInCurrentLocationTomorrowUseCase,
     private val getWeatherInCurrentLocationDayAfterTomorrowUseCase: GetWeatherInCurrentLocationDayAfterTomorrowUseCase
@@ -70,26 +69,8 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    private val permissions = arrayOf(
-        Manifest.permission.ACCESS_FINE_LOCATION,
-        Manifest.permission.ACCESS_COARSE_LOCATION
-    )
 
-    private fun checkLocationPermission(context: Context): Boolean {
-        return (ContextCompat.checkSelfPermission(
-            context,
-            permissions[0]
-        ) == PackageManager.PERMISSION_GRANTED)
-    }
-
-    private fun showDialogueWindow(activity: Activity) {
-        ActivityCompat.requestPermissions(activity, permissions, RC_LOCATION)
-    }
-
-    fun getWeather(
-        activity: Activity,
-        fusedLocationProviderClient: FusedLocationProviderClient
-    ) {
+    fun getWeather(activity: Activity) {
         if (checkLocationPermission(activity)) {
             fusedLocationProviderClient.getCurrentLocation(
                 Priority.PRIORITY_HIGH_ACCURACY,
@@ -104,21 +85,37 @@ class MainViewModel @Inject constructor(
                     loadTomorrowWeather(it)
                     loadDayAfterTomorrowWeather(it)
                 } else {
-                    getWeather(activity, fusedLocationProviderClient)
+                    getWeather(activity)
                 }
             }
         } else {
-            showDialogueWindow(activity)
-            getWeather(activity, fusedLocationProviderClient)
+            requestLocationPermission(activity)
+            getWeather(activity)
         }
     }
 
+    private fun requestLocationPermission(activity: Activity) =
+        ActivityCompat.requestPermissions(activity, permissions, RC_LOCATION)
+
+
+    private fun checkLocationPermission(activity: Activity): Boolean {
+        return ActivityCompat.checkSelfPermission(
+            activity,
+            permissions[0]
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+
     companion object {
+        private val permissions = arrayOf(
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        )
         private const val TAG = "Weather-Response"
-        const val RC_LOCATION = 101
+        private const val RC_LOCATION = 101
+        private val calendar = Calendar.getInstance()
 
         fun getDayOfWeek(): Int {
-            val dayOfWeek = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
+            val dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)
             return when (dayOfWeek) {
                 Calendar.MONDAY -> R.string.monday
                 Calendar.TUESDAY -> R.string.tuesday
@@ -130,10 +127,10 @@ class MainViewModel @Inject constructor(
             }
         }
 
-        fun getDayOfMonth() = Calendar.getInstance().get(Calendar.DAY_OF_MONTH).toString()
+        fun getDayOfMonth() = calendar.get(Calendar.DAY_OF_MONTH).toString()
 
         fun getMonth(): Int {
-            val month = Calendar.getInstance().get(Calendar.MONTH)
+            val month = calendar.get(Calendar.MONTH)
             return when (month) {
                 Calendar.DECEMBER -> R.string.december
                 Calendar.JANUARY -> R.string.january
@@ -150,6 +147,6 @@ class MainViewModel @Inject constructor(
             }
         }
 
-        fun getYear() = Calendar.getInstance().get(Calendar.YEAR).toString()
+        fun getYear() = calendar.get(Calendar.YEAR).toString()
     }
 }

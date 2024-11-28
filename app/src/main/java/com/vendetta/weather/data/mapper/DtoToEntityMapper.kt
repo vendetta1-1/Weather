@@ -5,6 +5,8 @@ import com.vendetta.weather.data.network.dto.ConditionDto
 import com.vendetta.weather.data.network.dto.CurrentDto
 import com.vendetta.weather.data.network.dto.DayDto
 import com.vendetta.weather.data.network.dto.ForecastDayDto
+import com.vendetta.weather.data.network.dto.ForecastDto
+import com.vendetta.weather.data.network.dto.HourDto
 import com.vendetta.weather.data.network.dto.LocationDto
 import com.vendetta.weather.data.network.dto.WeatherDto
 import com.vendetta.weather.domain.entity.AstroEntity
@@ -12,13 +14,27 @@ import com.vendetta.weather.domain.entity.ConditionEntity
 import com.vendetta.weather.domain.entity.CurrentEntity
 import com.vendetta.weather.domain.entity.DayEntity
 import com.vendetta.weather.domain.entity.ForecastDayEntity
+import com.vendetta.weather.domain.entity.ForecastEntity
+import com.vendetta.weather.domain.entity.HourEntity
 import com.vendetta.weather.domain.entity.LocationEntity
 import com.vendetta.weather.domain.entity.WeatherEntity
 
 fun WeatherDto.toEntity() = WeatherEntity(
     location = this.location.toEntity(),
     current = this.current.toEntity(),
-    forecastDay = this.forecast.forecastday[0].toEntity()
+    forecast = this.forecast.toEntity()
+)
+
+fun ForecastDto.toEntity() = ForecastEntity(
+    forecastDay = this.forecastday.map { it.toEntity() }
+)
+
+fun ForecastDayDto.toEntity() = ForecastDayEntity(
+    date = this.date,
+    dateEpoch = this.dateEpoch,
+    dayEntity = this.day.toEntity(),
+    astro = this.astro.toEntity(),
+    hour = this.hour.map { it.toEntity() }
 )
 
 fun AstroDto.toEntity() = AstroEntity(
@@ -57,13 +73,13 @@ fun DayDto.toEntity() = DayEntity(
     uv = this.uv
 )
 
-fun ForecastDayDto.toEntity() = ForecastDayEntity(
-    date = this.date,
-    dateEpoch = this.dateEpoch,
-    dayEntity = this.day.toEntity(),
-    astro = this.astro.toEntity()
+fun HourDto.toEntity() = HourEntity(
+    timeEpoch = this.timeEpoch,
+    time = this.time,
+    tempC = this.tempC,
+    condition = this.condition.toEntity(),
+    chanceOfRain = this.chanceOfRain
 )
-
 
 fun LocationDto.toEntity() = LocationEntity(
     name = this.name,
