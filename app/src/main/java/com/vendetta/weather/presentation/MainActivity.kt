@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.vendetta.weather.WeatherApp
 import com.vendetta.weather.ui.content.MainScreen
+import com.vendetta.weather.ui.content.SearchScreen
 import com.vendetta.weather.ui.theme.WeatherTheme
 import javax.inject.Inject
 

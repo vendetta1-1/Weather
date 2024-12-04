@@ -2,6 +2,7 @@
     <string name="toast_necessary_turn_on_location">Need to enable geolocation</string>
     <string name="app_name" translatable="false">Weather</string>
     <string name="start_label" translatable="false">A minimal weather app</string>
+    <string name="paris">Paris</string>
     <!--statistics-->
     <string name="wind_speed">Wind speed</string>
     <string name="pressure">Pressure</string>
@@ -34,4 +35,6 @@
     <string name="october">October</string>
     <string name="november">November</string>
     <string name="current_location">Current Location</string>
+    <string name="city">City</string>
+    <string name="find">Find</string>
 </resources>

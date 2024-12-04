@@ -1,48 +1,51 @@
 package com.vendetta.weather.ui.content
 
-import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
-import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.vendetta.weather.R
+import com.vendetta.weather.presentation.SearchViewModel
 
-@Preview
 @OptIn(ExperimentalMaterial3Api::class)
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun LocationsScreen() {
+fun SearchScreen(
+    viewModel: SearchViewModel
+) {
     Scaffold(
         topBar = {
             TopAppBar(
                 modifier = Modifier.padding(top = 70.dp),
                 title = {
                     Text(
-                        text = "Select City",
+                        text = "Find City",
                         style = MaterialTheme.typography.titleMedium,
                         color = MaterialTheme.colorScheme.secondary
                     )
-                },
-                actions = {
-                    IconButton(onClick = {}) {
-                        Icon(
-                            Icons.Default.Add,
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.secondary,
-                            modifier = Modifier.size(24.dp)
-                        )
-                    }
                 },
                 navigationIcon = {
                     IconButton(onClick = {}) {
@@ -53,10 +56,47 @@ fun LocationsScreen() {
                             modifier = Modifier.size(24.dp)
                         )
                     }
-                }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background)
             )
         }
     ) {
+        var city by remember { mutableStateOf("Paris") }
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.SpaceEvenly,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            //настроить цвета поля для ввода
+            TextField(
+                value = city,
+                onValueChange = { city = it },
+                label = { Text(text = stringResource(R.string.city)) },
+                modifier = Modifier
+                    .fillMaxWidth(0.7f)
+                    .padding(
+                        top = it.calculateTopPadding() + 20.dp,
+                    )
+            )
 
+            Button(
+                onClick = {
+                    viewModel.loadCurrentWeather(city)
+                    viewModel.loadTomorrowWeather(city)
+                    viewModel.loadDayAfterTomorrowWeather(city)
+                },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.onBackground,
+                    disabledContainerColor = MaterialTheme.colorScheme.onBackground
+                ),
+
+                ) {
+                Text(
+                    text = stringResource(R.string.find),
+                    color = MaterialTheme.colorScheme.background,
+                    style = MaterialTheme.typography.titleMedium
+                )
+            }
+        }
     }
 }
