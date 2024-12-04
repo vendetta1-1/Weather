@@ -25,7 +25,6 @@ import java.util.Calendar
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
-    private val fusedLocationProviderClient: FusedLocationProviderClient,
     private val getWeatherInCurrentLocationTodayUseCase: GetWeatherInCurrentLocationTodayUseCase,
     private val getWeatherInCurrentLocationTomorrowUseCase: GetWeatherInCurrentLocationTomorrowUseCase,
     private val getWeatherInCurrentLocationDayAfterTomorrowUseCase: GetWeatherInCurrentLocationDayAfterTomorrowUseCase
@@ -70,7 +69,7 @@ class MainViewModel @Inject constructor(
     }
 
 
-    fun getWeather(activity: Activity) {
+    fun getWeather(activity: Activity,fusedLocationProviderClient: FusedLocationProviderClient) {
         if (checkLocationPermission(activity)) {
             fusedLocationProviderClient.getCurrentLocation(
                 Priority.PRIORITY_HIGH_ACCURACY,
@@ -85,12 +84,12 @@ class MainViewModel @Inject constructor(
                     loadTomorrowWeather(it)
                     loadDayAfterTomorrowWeather(it)
                 } else {
-                    getWeather(activity)
+                    getWeather(activity,fusedLocationProviderClient)
                 }
             }
         } else {
             requestLocationPermission(activity)
-            getWeather(activity)
+            getWeather(activity,fusedLocationProviderClient)
         }
     }
 

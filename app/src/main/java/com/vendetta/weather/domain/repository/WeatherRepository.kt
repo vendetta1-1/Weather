@@ -16,6 +16,4 @@ interface WeatherRepository {
     suspend fun getWeatherInCityPeakedByUserTomorrow(city: String): WeatherEntity
 
     suspend fun getWeatherInCityPeakedByUserDayAfterTomorrow(city: String): WeatherEntity
-
-    suspend fun getWeatherInCitiesFromDB(): List<WeatherEntity>
 }
