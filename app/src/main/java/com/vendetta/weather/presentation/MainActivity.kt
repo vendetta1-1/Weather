@@ -5,7 +5,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import com.vendetta.weather.WeatherApp
 import com.vendetta.weather.ui.content.MainScreen
 import com.vendetta.weather.ui.theme.WeatherTheme
@@ -20,7 +19,8 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+    @Inject
+    lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
     private val viewModel by lazy {
         ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
@@ -29,9 +29,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         component.inject(this)
         super.onCreate(savedInstanceState)
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
-        viewModel.getWeather(this, fusedLocationProviderClient)
+        viewModel.getWeather(this,fusedLocationProviderClient)
 
         setContent {
             WeatherTheme {

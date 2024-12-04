@@ -2,10 +2,13 @@ package com.vendetta.weather.presentation
 
 import android.Manifest
 import android.app.Activity
+import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
 import android.util.Log
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -68,41 +71,46 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    private fun requestLocationPermission(activity: Activity) =
+        ActivityCompat.requestPermissions(activity, permissions, RC_LOCATION)
 
-    fun getWeather(activity: Activity,fusedLocationProviderClient: FusedLocationProviderClient) {
+
+    private fun checkLocationPermission(context: Context): Boolean {
+        return ContextCompat.checkSelfPermission(
+            context,
+            permissions[0]
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    fun getWeather(
+        activity: Activity,
+        fusedLocationProviderClient: FusedLocationProviderClient
+    ) {
         if (checkLocationPermission(activity)) {
             fusedLocationProviderClient.getCurrentLocation(
                 Priority.PRIORITY_HIGH_ACCURACY,
                 object : CancellationToken() {
-                    override fun onCanceledRequested(p0: OnTokenCanceledListener) =
+                    override fun onCanceledRequested(p0: OnTokenCanceledListener): CancellationToken =
                         CancellationTokenSource().token
 
-                    override fun isCancellationRequested() = false
-                }).addOnSuccessListener {
+                    override fun isCancellationRequested(): Boolean = false
+                }
+            ).addOnSuccessListener {
                 if (it != null) {
                     loadCurrentWeather(it)
                     loadTomorrowWeather(it)
                     loadDayAfterTomorrowWeather(it)
                 } else {
-                    getWeather(activity,fusedLocationProviderClient)
+                    Toast.makeText(activity, R.string.toast_necessary_turn_on_location, Toast.LENGTH_SHORT).show()
                 }
             }
         } else {
             requestLocationPermission(activity)
             getWeather(activity,fusedLocationProviderClient)
         }
+
     }
 
-    private fun requestLocationPermission(activity: Activity) =
-        ActivityCompat.requestPermissions(activity, permissions, RC_LOCATION)
-
-
-    private fun checkLocationPermission(activity: Activity): Boolean {
-        return ActivityCompat.checkSelfPermission(
-            activity,
-            permissions[0]
-        ) == PackageManager.PERMISSION_GRANTED
-    }
 
     companion object {
         private val permissions = arrayOf(

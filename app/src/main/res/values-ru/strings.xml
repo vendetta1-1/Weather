@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="toast_necessary_turn_on_location">Необходимо включить геолокацию</string>
     <string name="current_location">Текущее Местоположение</string>
     <string name="wind_speed">Скорость ветра</string>
     <string name="pressure">Давление</string>
