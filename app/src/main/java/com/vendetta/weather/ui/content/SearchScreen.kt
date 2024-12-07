@@ -88,9 +88,8 @@ fun SearchScreen(
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.onBackground,
                     disabledContainerColor = MaterialTheme.colorScheme.onBackground
-                ),
-
-                ) {
+                )
+            ) {
                 Text(
                     text = stringResource(R.string.find),
                     color = MaterialTheme.colorScheme.background,

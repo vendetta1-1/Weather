@@ -1,5 +1,9 @@
 package com.vendetta.weather.domain.entity
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class DayEntity(
     val maxTempC: Double,
     val minTempC: Double,
@@ -8,4 +12,4 @@ data class DayEntity(
     val condition: ConditionEntity,
     val uv: Double
 
-)
+) : Parcelable

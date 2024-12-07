@@ -10,7 +10,7 @@ import dagger.Component
 @Component(modules = [DataModule::class, ViewModelModule::class])
 interface ApplicationComponent {
 
-    fun inject(activity: MainActivity)
+    fun inject(mainActivity: MainActivity)
 
     @Component.Factory
     interface Factory {

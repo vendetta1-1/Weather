@@ -1,6 +1,9 @@
 package com.vendetta.weather.domain.entity
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class CurrentEntity(
     val lastUpdatedEpoch: Int,
     val lastUpdated: String,
@@ -17,4 +20,4 @@ data class CurrentEntity(
     val visKm: Int,
     val uv: Double
 
-)
+) : Parcelable

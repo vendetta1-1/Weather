@@ -1,12 +1,16 @@
 package com.vendetta.weather.domain.entity
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class WeatherEntity(
     val location: LocationEntity,
     val current: CurrentEntity,
     val forecastDay: ForecastDayEntity
-) {
+) : Parcelable {
     companion object {
-        val defaultValue= WeatherEntity(
+        val defaultValue = WeatherEntity(
             location = LocationEntity(
                 name = "",
                 region = "",
