@@ -5,7 +5,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
-import android.util.Log
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -23,6 +22,8 @@ import com.vendetta.weather.domain.entity.WeatherEntity
 import com.vendetta.weather.domain.useCase.GetWeatherInCurrentLocationDayAfterTomorrowUseCase
 import com.vendetta.weather.domain.useCase.GetWeatherInCurrentLocationTodayUseCase
 import com.vendetta.weather.domain.useCase.GetWeatherInCurrentLocationTomorrowUseCase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import java.util.Calendar
 import javax.inject.Inject
@@ -47,27 +48,29 @@ class MainViewModel @Inject constructor(
 
     private fun loadCurrentWeather(location: Location) {
         viewModelScope.launch {
-            _currentWeatherEntity.value = getWeatherInCurrentLocationTodayUseCase(location)
-            Log.i(
-                TAG, _currentWeatherEntity.value.toString()
-            )
+            _currentWeatherEntity.value = async(Dispatchers.IO) {
+                getWeatherInCurrentLocationTodayUseCase(location)
+            }.await()
         }
+
     }
 
     private fun loadTomorrowWeather(location: Location) {
         viewModelScope.launch {
-            _tomorrowWeatherEntity.value = getWeatherInCurrentLocationTomorrowUseCase(location)
-            Log.i(
-                TAG, _tomorrowWeatherEntity.value.toString()
-            )
+            _tomorrowWeatherEntity.value =
+                async(Dispatchers.IO) {
+                    getWeatherInCurrentLocationTomorrowUseCase(location)
+                }.await()
         }
     }
 
     private fun loadDayAfterTomorrowWeather(location: Location) {
         viewModelScope.launch {
             _dayAfterTomorrowWeatherEntity.value =
-                getWeatherInCurrentLocationDayAfterTomorrowUseCase(location)
-            Log.i(TAG, _dayAfterTomorrowWeatherEntity.value.toString())
+                async(Dispatchers.IO) {
+                    getWeatherInCurrentLocationDayAfterTomorrowUseCase(location)
+                }.await()
+
         }
     }
 
@@ -77,36 +80,34 @@ class MainViewModel @Inject constructor(
 
     private fun checkLocationPermission(context: Context): Boolean {
         return ContextCompat.checkSelfPermission(
-            context,
-            permissions[0]
+            context, permissions[0]
         ) == PackageManager.PERMISSION_GRANTED
     }
 
     fun getWeather(
-        activity: Activity,
-        fusedLocationProviderClient: FusedLocationProviderClient
+        activity: Activity, fusedLocationProviderClient: FusedLocationProviderClient
     ) {
         if (checkLocationPermission(activity)) {
-            fusedLocationProviderClient.getCurrentLocation(
-                Priority.PRIORITY_HIGH_ACCURACY,
+            fusedLocationProviderClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY,
                 object : CancellationToken() {
                     override fun onCanceledRequested(p0: OnTokenCanceledListener): CancellationToken =
                         CancellationTokenSource().token
 
                     override fun isCancellationRequested(): Boolean = false
-                }
-            ).addOnSuccessListener {
+                }).addOnSuccessListener {
                 if (it != null) {
                     loadCurrentWeather(it)
                     loadTomorrowWeather(it)
                     loadDayAfterTomorrowWeather(it)
                 } else {
-                    Toast.makeText(activity, R.string.toast_necessary_turn_on_location, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        activity, R.string.toast_necessary_turn_on_location, Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         } else {
             requestLocationPermission(activity)
-            getWeather(activity,fusedLocationProviderClient)
+            getWeather(activity, fusedLocationProviderClient)
         }
 
     }
@@ -114,10 +115,8 @@ class MainViewModel @Inject constructor(
 
     companion object {
         private val permissions = arrayOf(
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION
+            Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION
         )
-        private const val TAG = "Weather-Response"
         private const val RC_LOCATION = 101
         private val calendar = Calendar.getInstance()
 
