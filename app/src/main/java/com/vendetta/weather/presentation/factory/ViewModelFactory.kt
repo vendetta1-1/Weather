@@ -1,4 +1,4 @@
-package com.vendetta.weather.presentation
+package com.vendetta.weather.presentation.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

@@ -1,4 +1,4 @@
-package com.vendetta.weather.presentation
+package com.vendetta.weather.presentation.views.search
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

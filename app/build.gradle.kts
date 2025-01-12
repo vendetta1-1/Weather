@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "com.vendetta.weather"
-        minSdk = 29
+        minSdk = 31
         versionCode = 1
         versionName = "1.0"
 
@@ -51,10 +51,8 @@ android {
 
 }
 dependencies {
-    //room database
-    implementation(libs.androidx.room.room.runtime)
-    ksp(libs.androidx.room.compiler)
-    implementation(libs.androidx.room.ktx)
+    //navigation
+    implementation(libs.androidx.navigation.compose)
     //location
     implementation(libs.play.services.location)
     //dependency injection

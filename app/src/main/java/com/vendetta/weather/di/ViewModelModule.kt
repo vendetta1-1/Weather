@@ -1,8 +1,8 @@
 package com.vendetta.weather.di
 
 import androidx.lifecycle.ViewModel
-import com.vendetta.weather.presentation.MainViewModel
-import com.vendetta.weather.presentation.SearchViewModel
+import com.vendetta.weather.presentation.views.loading.LoadingViewModel
+import com.vendetta.weather.presentation.views.search.SearchViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -11,9 +11,9 @@ import dagger.multibindings.IntoMap
 interface ViewModelModule {
 
     @IntoMap
-    @ViewModelKey(MainViewModel::class)
+    @ViewModelKey(LoadingViewModel::class)
     @Binds
-    fun bindMainViewModel(impl: MainViewModel): ViewModel
+    fun bindLoadingViewModel(impl: LoadingViewModel): ViewModel
 
     @IntoMap
     @ViewModelKey(SearchViewModel::class)

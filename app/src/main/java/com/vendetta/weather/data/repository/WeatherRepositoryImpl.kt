@@ -2,11 +2,10 @@ package com.vendetta.weather.data.repository
 
 import android.location.Location
 import com.vendetta.weather.data.mapper.toEntity
-import com.vendetta.weather.data.network.ApiService
+import com.vendetta.weather.data.network.api.ApiService
 import com.vendetta.weather.domain.entity.WeatherEntity
 import com.vendetta.weather.domain.repository.WeatherRepository
 import javax.inject.Inject
-
 
 class WeatherRepositoryImpl @Inject constructor(
     private val apiService: ApiService
@@ -46,7 +45,7 @@ class WeatherRepositoryImpl @Inject constructor(
         return apiService.loadWeatherDayAfterTomorrow(city).toEntity()
 
     }
-    
+
     private fun formatLocation(location: Location): String {
         return "${location.latitude},${location.longitude}"
     }

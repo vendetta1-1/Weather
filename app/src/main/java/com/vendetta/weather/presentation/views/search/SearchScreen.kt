@@ -1,4 +1,4 @@
-package com.vendetta.weather.ui.content
+package com.vendetta.weather.presentation.views.search
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -29,12 +29,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.vendetta.weather.R
-import com.vendetta.weather.presentation.SearchViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchScreen(
-    viewModel: SearchViewModel
+    onButtonClickListener: () -> Unit,
+    onBackButtonBackListener: () -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -48,7 +48,7 @@ fun SearchScreen(
                     )
                 },
                 navigationIcon = {
-                    IconButton(onClick = {}) {
+                    IconButton(onClick = { onBackButtonBackListener() }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
                             contentDescription = null,
@@ -80,11 +80,7 @@ fun SearchScreen(
             )
 
             Button(
-                onClick = {
-                    viewModel.loadCurrentWeather(city)
-                    viewModel.loadTomorrowWeather(city)
-                    viewModel.loadDayAfterTomorrowWeather(city)
-                },
+                onClick = { onButtonClickListener() },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.onBackground,
                     disabledContainerColor = MaterialTheme.colorScheme.onBackground
