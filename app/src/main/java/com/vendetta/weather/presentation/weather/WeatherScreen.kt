@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -41,14 +42,17 @@ import com.vendetta.weather.presentation.loading.LoadingViewModel
 fun WeatherScreen(
     weatherEntity: WeatherEntity,
     isCurrentLocation: Boolean,
-    onSearchButtonClickListener: () -> Unit
+    onSearchButtonClickListener: () -> Unit,
+    onBackButtonClickListener: () -> Unit
 ) {
     Scaffold(
         topBar = {
             WeatherTopAppBar(
                 city = weatherEntity.location.name,
+                country = weatherEntity.location.country,
                 isCurrentLocation = isCurrentLocation,
-                onSearchButtonClickListener = onSearchButtonClickListener
+                onSearchButtonClickListener = onSearchButtonClickListener,
+                onBackButtonClickListener = onBackButtonClickListener
             )
         }
     ) { padding ->
@@ -106,8 +110,10 @@ fun WeatherScreen(
 @Composable
 private fun WeatherTopAppBar(
     city: String,
-    isCurrentLocation: Boolean ,
-    onSearchButtonClickListener: () -> Unit
+    country: String,
+    isCurrentLocation: Boolean,
+    onSearchButtonClickListener: () -> Unit,
+    onBackButtonClickListener: () -> Unit
 ) {
     TopAppBar(
         modifier = Modifier.padding(top = 70.dp),
@@ -120,6 +126,11 @@ private fun WeatherTopAppBar(
                     text = city,
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onBackground
+                )
+                Text(
+                    text = country,
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.secondary
                 )
                 if (isCurrentLocation) {
                     Spacer(
@@ -135,19 +146,32 @@ private fun WeatherTopAppBar(
             }
         },
         actions = {
-            IconButton(onClick = { onSearchButtonClickListener() }) {
-                Icon(
-                    Icons.Default.Search,
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.secondary
-                )
+            if (isCurrentLocation) {
+                IconButton(onClick = { onSearchButtonClickListener() }) {
+                    Icon(
+                        Icons.Default.Search,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.secondary
+                    )
+                }
+                IconButton(onClick = {}) {
+                    Icon(
+                        Icons.Default.Settings,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.secondary
+                    )
+                }
             }
-            IconButton(onClick = {}) {
-                Icon(
-                    Icons.Default.Settings,
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.secondary
-                )
+        },
+        navigationIcon = {
+            if (!isCurrentLocation) {
+                IconButton(onClick = onBackButtonClickListener) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.secondary
+                    )
+                }
             }
         },
         colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background)

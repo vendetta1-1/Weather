@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.vendetta.weather.domain.useCase.GetWeatherInCityPeakedByUserDayAfterTomorrowUseCase
 import com.vendetta.weather.domain.useCase.GetWeatherInCityPeakedByUserTodayUseCase
 import com.vendetta.weather.domain.useCase.GetWeatherInCityPeakedByUserTomorrowUseCase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -22,7 +23,7 @@ class SearchViewModel @Inject constructor(
 
     fun loadWeather(city: String) {
         viewModelScope.launch {
-            _screenState.value = async {
+            _screenState.value = async(Dispatchers.IO) {
                 SearchScreenState.Loading(
                     currentWeatherEntity = getWeatherInCityPeakedByUserTodayUseCase(city),
                     tomorrowWeatherEntity = getWeatherInCityPeakedByUserTomorrowUseCase(city),

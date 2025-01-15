@@ -47,12 +47,17 @@ fun RootScreen(
             val currentState = searchState.value
             SearchScreen(
                 onButtonClickListener = { city ->
-                    searchViewModel.loadWeather(city)
-                    if (currentState is SearchScreenState.Loading) {
-                        navigationState.navigateToWeather(
-                            currentState.currentWeatherEntity,
-                            isCurrentLocation = false
-                        )
+                    when (currentState) {
+                        is SearchScreenState.Initial -> {
+                            searchViewModel.loadWeather(city.trim())
+
+                        }
+                        is SearchScreenState.Loading -> {
+                            navigationState.navigateToWeather(
+                                weatherEntity = currentState.currentWeatherEntity,
+                                isCurrentLocation = false
+                            )
+                        }
                     }
                 },
                 onBackButtonBackListener = {
@@ -64,7 +69,8 @@ fun RootScreen(
             WeatherScreen(
                 weatherEntity = weatherEntity,
                 isCurrentLocation = isCurrentLocation,
-                onSearchButtonClickListener = { navigationState.navigateTo(Screen.Search.route) }
+                onSearchButtonClickListener = { navigationState.navigateTo(Screen.Search.route) },
+                onBackButtonClickListener = { navigationState.navHostController.popBackStack() }
             )
         }
     )

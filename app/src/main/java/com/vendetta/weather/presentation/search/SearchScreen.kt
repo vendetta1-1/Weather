@@ -20,10 +20,8 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -61,7 +59,7 @@ fun SearchScreen(
             )
         }
     ) {
-        var city by remember { mutableStateOf("Paris") }
+        val city = remember { mutableStateOf("Paris") }
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.SpaceEvenly,
@@ -69,18 +67,19 @@ fun SearchScreen(
         ) {
             //настроить цвета поля для ввода
             TextField(
-                value = city,
-                onValueChange = { city = it },
+                value = city.value,
+                onValueChange = { city.value = it },
                 label = { Text(text = stringResource(R.string.city)) },
                 modifier = Modifier
                     .fillMaxWidth(0.7f)
                     .padding(
                         top = it.calculateTopPadding() + 20.dp,
-                    )
+                    ),
+                singleLine = true
             )
 
             Button(
-                onClick = { onButtonClickListener(city) },
+                onClick = { onButtonClickListener(city.value) },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.onBackground,
                     disabledContainerColor = MaterialTheme.colorScheme.onBackground
