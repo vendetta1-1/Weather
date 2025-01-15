@@ -1,4 +1,4 @@
-package com.vendetta.weather.presentation.views.search
+package com.vendetta.weather.presentation.search
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -33,7 +33,7 @@ import com.vendetta.weather.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchScreen(
-    onButtonClickListener: () -> Unit,
+    onButtonClickListener: (String) -> Unit,
     onBackButtonBackListener: () -> Unit,
 ) {
     Scaffold(
@@ -42,7 +42,7 @@ fun SearchScreen(
                 modifier = Modifier.padding(top = 70.dp),
                 title = {
                     Text(
-                        text = "Find City",
+                        text = stringResource(R.string.find_city),
                         style = MaterialTheme.typography.titleMedium,
                         color = MaterialTheme.colorScheme.secondary
                     )
@@ -80,7 +80,7 @@ fun SearchScreen(
             )
 
             Button(
-                onClick = { onButtonClickListener() },
+                onClick = { onButtonClickListener(city) },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.onBackground,
                     disabledContainerColor = MaterialTheme.colorScheme.onBackground

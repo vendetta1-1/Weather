@@ -1,4 +1,4 @@
-package com.vendetta.weather.presentation.views.loading
+package com.vendetta.weather.presentation.loading
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -26,12 +26,12 @@ import javax.inject.Inject
 class LoadingViewModel @Inject constructor(
     private val getWeatherInCurrentLocationTodayUseCase: GetWeatherInCurrentLocationTodayUseCase,
     private val getWeatherInCurrentLocationTomorrowUseCase: GetWeatherInCurrentLocationTomorrowUseCase,
-    private val getWeatherInCurrentLocationDayAfterTomorrowUseCase: GetWeatherInCurrentLocationDayAfterTomorrowUseCase
+    private val getWeatherInCurrentLocationDayAfterTomorrowUseCase: GetWeatherInCurrentLocationDayAfterTomorrowUseCase,
+    private val fusedLocationProviderClient: FusedLocationProviderClient
 ) : ViewModel() {
 
     private val _screenState = MutableLiveData<LoadingScreenState>(LoadingScreenState.Initial)
-    val screenState: LiveData<LoadingScreenState>
-        get() = _screenState
+    val screenState: LiveData<LoadingScreenState> = _screenState
 
 
     private fun loadWeather(location: Location) {
@@ -52,8 +52,7 @@ class LoadingViewModel @Inject constructor(
 
     @SuppressLint("MissingPermission")
     fun getWeather(
-        activity: Activity,
-        fusedLocationProviderClient: FusedLocationProviderClient
+        activity: Activity
     ) {
         fusedLocationProviderClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY,
             object : CancellationToken() {

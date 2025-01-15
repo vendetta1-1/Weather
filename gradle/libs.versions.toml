@@ -1,7 +1,6 @@
 [versions]
 agp = "8.8.0"
 navigationCompose = "2.8.5"
-room = "2.6.1"
 daggerCompiler = "2.52"
 kotlin = "2.0.21"
 coreKtx = "1.15.0"
@@ -12,20 +11,17 @@ kotlinxCoroutinesAndroid = "1.9.0"
 kotlinxCoroutinesCore = "1.9.0"
 lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.9.3"
-composeBom = "2024.11.00"
+composeBom = "2024.12.01"
 playServicesLocation = "21.3.0"
 retrofit = "2.11.0"
 runner = "1.6.2"
-androidXCompose = "1.7.5"
+androidXCompose = "1.7.6"
 androidXLifeCycle = "2.8.7"
 ksp = "2.0.21-1.0.26"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
-androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
-androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
-androidx-room-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 dagger = { module = "com.google.dagger:dagger", version.ref = "daggerCompiler" }
 dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "daggerCompiler" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }

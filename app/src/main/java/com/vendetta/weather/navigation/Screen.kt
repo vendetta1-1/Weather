@@ -15,15 +15,16 @@ sealed class Screen(
 
         private const val ROUTE_FOR_ARGS = "weather"
 
-        fun getRouteWithArgs(weatherEntity: WeatherEntity): String {
+        fun getRouteWithArgs(weatherEntity: WeatherEntity, isCurrentLocation: Boolean): String {
             val weatherEntityJson = Gson().toJson(weatherEntity)
-            return "$ROUTE_FOR_ARGS/${weatherEntityJson.encode()}"
+            return "$ROUTE_FOR_ARGS/${weatherEntityJson.encode()}/$isCurrentLocation"
         }
     }
 
     companion object {
         const val WEATHER_KEY = "weather_entity"
-        private const val WEATHER_ROUTE = "weather/{$WEATHER_KEY}"
+        const val IS_CURRENT_LOCATION_KEY = "is_current_location"
+        private const val WEATHER_ROUTE = "weather/{$WEATHER_KEY}/{$IS_CURRENT_LOCATION_KEY}"
         private const val LOADING_ROUTE = "loading"
         private const val SEARCH_ROUTE = "search"
     }

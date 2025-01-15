@@ -44,7 +44,7 @@ data class CurrentDto(
     val feelslikeC: Double,
     @SerializedName("vis_km")
     @Expose
-    val visKm: Int,
+    val visKm: Double,
     @SerializedName("uv")
     @Expose
     val uv: Double

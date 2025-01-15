@@ -1,4 +1,4 @@
-package com.vendetta.weather.presentation.views.weather
+package com.vendetta.weather.presentation.weather
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -35,17 +35,19 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.vendetta.weather.R
 import com.vendetta.weather.domain.entity.WeatherEntity
-import com.vendetta.weather.presentation.views.loading.LoadingViewModel
+import com.vendetta.weather.presentation.loading.LoadingViewModel
 
 @Composable
 fun WeatherScreen(
     weatherEntity: WeatherEntity,
+    isCurrentLocation: Boolean,
     onSearchButtonClickListener: () -> Unit
 ) {
     Scaffold(
         topBar = {
             WeatherTopAppBar(
                 city = weatherEntity.location.name,
+                isCurrentLocation = isCurrentLocation,
                 onSearchButtonClickListener = onSearchButtonClickListener
             )
         }
@@ -104,7 +106,7 @@ fun WeatherScreen(
 @Composable
 private fun WeatherTopAppBar(
     city: String,
-    isCurrentLocation: Boolean = true,
+    isCurrentLocation: Boolean ,
     onSearchButtonClickListener: () -> Unit
 ) {
     TopAppBar(

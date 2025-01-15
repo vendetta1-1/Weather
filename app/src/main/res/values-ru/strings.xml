@@ -31,4 +31,5 @@
     <string name="december">Декабрь</string>
     <string name="city">Город</string>
     <string name="find">Найти</string>
+    <string name="find_city">Найти город</string>
 </resources>

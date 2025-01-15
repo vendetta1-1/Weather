@@ -17,7 +17,7 @@ data class CurrentEntity(
     val humidity: Int,
     val cloud: Int,
     val feelsLikeC: Double,
-    val visKm: Int,
+    val visKm: Double,
     val uv: Double
 
 ) : Parcelable

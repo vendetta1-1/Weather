@@ -1,4 +1,4 @@
-package com.vendetta.weather.presentation.views.loading
+package com.vendetta.weather.presentation.loading
 
 import android.Manifest
 import android.app.Activity

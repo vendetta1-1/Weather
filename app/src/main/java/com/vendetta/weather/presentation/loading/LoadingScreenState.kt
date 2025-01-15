@@ -1,4 +1,4 @@
-package com.vendetta.weather.presentation.views.loading
+package com.vendetta.weather.presentation.loading
 
 import com.vendetta.weather.domain.entity.WeatherEntity
 

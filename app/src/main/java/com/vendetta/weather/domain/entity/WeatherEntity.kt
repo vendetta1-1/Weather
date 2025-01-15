@@ -33,7 +33,7 @@ data class WeatherEntity(
         humidity = 0,
         cloud = 0,
         feelsLikeC = 0.0,
-        visKm = 0,
+        visKm = 0.0,
         uv = 0.0
     ),
     val forecastDay: ForecastDayEntity = ForecastDayEntity(

@@ -19,9 +19,14 @@ class NavigationState(
         }
     }
 
-    fun navigateToWeather(weatherEntity: WeatherEntity) {
+    fun navigateToWeather(weatherEntity: WeatherEntity, isCurrentLocation: Boolean) {
         navHostController.popBackStack()
-        navHostController.navigate(Screen.Weather.getRouteWithArgs(weatherEntity))
+        navHostController.navigate(
+            Screen.Weather.getRouteWithArgs(
+                weatherEntity,
+                isCurrentLocation
+            )
+        )
 
     }
 

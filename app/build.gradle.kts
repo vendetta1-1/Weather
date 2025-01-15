@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "com.vendetta.weather"
-        minSdk = 31
+        minSdk = 30
         versionCode = 1
         versionName = "1.0"
 
