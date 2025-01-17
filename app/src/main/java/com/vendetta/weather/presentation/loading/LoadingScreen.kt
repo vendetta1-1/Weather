@@ -1,8 +1,8 @@
 package com.vendetta.weather.presentation.loading
 
 import android.Manifest
-import android.app.Activity
-import android.content.pm.PackageManager
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,9 +12,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.vendetta.weather.R
@@ -23,6 +27,18 @@ import com.vendetta.weather.R
 fun LoadingScreen(
     onStartScreen: () -> Unit
 ) {
+    var isPermissionGranted by remember { mutableStateOf(false) }
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission(),
+        onResult = { isPermissionGranted = it }
+    )
+
+    SideEffect {
+        launcher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+        onStartScreen()
+    }
+    onStartScreen()
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -44,14 +60,4 @@ fun LoadingScreen(
             modifier = Modifier.padding(bottom = 20.dp)
         )
     }
-    if (LocalContext.current.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-        onStartScreen()
-    } else {
-        (LocalContext.current as Activity).requestPermissions(permissions, RC_LOCATION)
-    }
 }
-
-private val permissions = arrayOf(
-    Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION
-)
-private const val RC_LOCATION = 101
