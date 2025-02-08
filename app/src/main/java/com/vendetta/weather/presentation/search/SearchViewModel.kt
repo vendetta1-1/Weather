@@ -22,9 +22,10 @@ class SearchViewModel @Inject constructor(
     val screenState: LiveData<SearchScreenState> = _screenState
 
     fun loadWeather(city: String) {
+        _screenState.value = SearchScreenState.Loading
         viewModelScope.launch {
             _screenState.value = async(Dispatchers.IO) {
-                SearchScreenState.Loading(
+                SearchScreenState.Success(
                     currentWeatherEntity = getWeatherInCityPeakedByUserTodayUseCase(city),
                     tomorrowWeatherEntity = getWeatherInCityPeakedByUserTomorrowUseCase(city),
                     dayAfterTomorrowWeatherEntity =

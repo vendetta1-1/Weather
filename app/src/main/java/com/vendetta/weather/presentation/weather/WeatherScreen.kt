@@ -1,21 +1,25 @@
 package com.vendetta.weather.presentation.weather
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -27,6 +31,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -58,7 +63,6 @@ fun WeatherScreen(
     ) { padding ->
         Column(
             modifier = Modifier
-                .fillMaxSize()
                 .padding(top = padding.calculateTopPadding() + 50.dp),
             horizontalAlignment = Alignment.CenterHorizontally
 
@@ -86,22 +90,8 @@ fun WeatherScreen(
             )
             Spacer(
                 modifier = Modifier
-                    .height(60.dp)
+                    .height(64.dp)
             )
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceEvenly
-            ) {
-                MicroStatistic(
-                    imageResId = R.drawable.pressure,
-                    value = weatherEntity.current.pressureMb.toString()
-                )
-                MicroStatistic(
-                    imageResId = R.drawable.humidity,
-                    value = weatherEntity.current.humidity.toString()
-                )
-            }
         }
     }
 }
@@ -147,7 +137,7 @@ private fun WeatherTopAppBar(
         },
         actions = {
             if (isCurrentLocation) {
-                IconButton(onClick = { onSearchButtonClickListener() }) {
+                IconButton(onClick = onSearchButtonClickListener) {
                     Icon(
                         Icons.Default.Search,
                         contentDescription = null,
@@ -273,34 +263,52 @@ private fun ArrowWithText(
 }
 
 @Composable
-fun MicroStatistic(
+private fun MicroStatistic(
     imageResId: Int,
+    titleResId: Int,
     value: String
 ) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
+    Card(
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = Color.DarkGray
+        ),
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 2.dp
+        )
     ) {
-        Icon(
-            imageVector = ImageVector.vectorResource(imageResId),
-            contentDescription = null,
-            modifier = Modifier.size(24.dp),
-            tint = MaterialTheme.colorScheme.secondary
-        )
-        Spacer(
-            modifier = Modifier
-                .width(5.dp)
-        )
-        Text(
-            text = value,
-            style = MaterialTheme.typography.titleMedium,
-            color = MaterialTheme.colorScheme.secondary
-        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(8.dp)
+        ) {
+            Icon(
+                imageVector = ImageVector.vectorResource(imageResId),
+                contentDescription = stringResource(titleResId),
+                modifier = Modifier.size(24.dp),
+                tint = MaterialTheme.colorScheme.onBackground
+            )
+            Spacer(modifier = Modifier.width(4.dp))
+            Column(
+                verticalArrangement = Arrangement.SpaceAround
+            ) {
+                Text(
+                    text = stringResource(titleResId),
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.secondary,
+                    maxLines = 3
+                )
+                Text(
+                    text = value,
+                    style = MaterialTheme.typography.titleSmall,
+                    color = MaterialTheme.colorScheme.onBackground
+                )
+            }
+        }
     }
 }
 
 @Composable
-fun DateHeader(
+private fun DateHeader(
     dayOfWeekResource: Int,
     monthResource: Int,
     dayOfMonth: String,
@@ -321,7 +329,7 @@ fun DateHeader(
 }
 
 @Composable
-fun ConditionHeader(
+private fun ConditionHeader(
     text: String,
     code: Int
 ) {

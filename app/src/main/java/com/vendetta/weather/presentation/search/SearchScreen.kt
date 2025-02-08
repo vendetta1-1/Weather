@@ -20,20 +20,49 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.vendetta.weather.R
+import com.vendetta.weather.domain.entity.WeatherEntity
+import com.vendetta.weather.presentation.factory.ViewModelFactory
+
+@Composable
+fun SearchScreen(
+    viewModelFactory: ViewModelFactory,
+    navToWeather: (WeatherEntity, Boolean) -> Unit,
+    onBackButtonBackListener: () -> Unit
+) {
+    val viewModel: SearchViewModel = viewModel(factory = viewModelFactory)
+    val screenState = viewModel.screenState.observeAsState(SearchScreenState.Initial)
+
+    SearchScreenContent(
+        onBackButtonBackListener = onBackButtonBackListener,
+        viewModel = viewModel,
+        screenState = screenState,
+        navToWeather = navToWeather
+    )
+
+}
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchScreen(
-    onButtonClickListener: (String) -> Unit,
-    onBackButtonBackListener: () -> Unit,
+private fun SearchScreenContent(
+    viewModel: SearchViewModel,
+    screenState: State<SearchScreenState>,
+    navToWeather: (WeatherEntity, Boolean) -> Unit,
+    onBackButtonBackListener: () -> Unit
 ) {
+    val currentState = screenState.value
     Scaffold(
         topBar = {
             TopAppBar(
@@ -59,7 +88,7 @@ fun SearchScreen(
             )
         }
     ) {
-        val city = remember { mutableStateOf("Paris") }
+        var city by remember { mutableStateOf("Paris") }
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.SpaceEvenly,
@@ -67,8 +96,8 @@ fun SearchScreen(
         ) {
             //настроить цвета поля для ввода
             TextField(
-                value = city.value,
-                onValueChange = { city.value = it },
+                value = city,
+                onValueChange = { city = it },
                 label = { Text(text = stringResource(R.string.city)) },
                 modifier = Modifier
                     .fillMaxWidth(0.7f)
@@ -79,11 +108,17 @@ fun SearchScreen(
             )
 
             Button(
-                onClick = { onButtonClickListener(city.value) },
+                onClick = {
+                    viewModel.loadWeather(city)
+                    if (currentState is SearchScreenState.Success) {
+                        navToWeather(currentState.currentWeatherEntity, false)
+                    }
+                },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.onBackground,
                     disabledContainerColor = MaterialTheme.colorScheme.onBackground
-                )
+                ),
+                enabled = currentState !is SearchScreenState.Loading
             ) {
                 Text(
                     text = stringResource(R.string.find),
@@ -94,3 +129,4 @@ fun SearchScreen(
         }
     }
 }
+

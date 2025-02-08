@@ -6,7 +6,9 @@ sealed class SearchScreenState {
 
     data object Initial : SearchScreenState()
 
-    data class Loading(
+    data object Loading : SearchScreenState()
+
+    data class Success(
         val currentWeatherEntity: WeatherEntity,
         val tomorrowWeatherEntity: WeatherEntity,
         val dayAfterTomorrowWeatherEntity: WeatherEntity,

@@ -10,6 +10,7 @@
     <string name="sunrise">Восход</string>
     <string name="sunset">Закат</string>
     <string name="chance_of_rain">Вероятность дождя</string>
+    <string name="humidity">Влажность</string>
     <string name="monday">Понедельник</string>
     <string name="tuesday">Вторник</string>
     <string name="wednesday">Среда</string>
@@ -32,4 +33,6 @@
     <string name="city">Город</string>
     <string name="find">Найти</string>
     <string name="find_city">Найти город</string>
+    <string name="millibars">Милибар</string>
+    <string name="kilometers_per_hour">км/ч</string>
 </resources>

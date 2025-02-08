@@ -40,5 +40,12 @@ val Typography = Typography(
         letterSpacing = 0.sp,
         fontFamily = FontFamily(Font(R.font.ubuntu_condensed)),
         fontWeight = FontWeight(400)
+    ),
+    labelSmall = TextStyle(
+        fontSize = 14.sp,
+        lineHeight = 20.sp,
+        fontFamily = FontFamily(Font(R.font.ubuntu_condensed)),
+        fontWeight = FontWeight(400),
+        letterSpacing = 0.25.sp,
     )
 )

@@ -2,7 +2,7 @@ package com.vendetta.weather.di
 
 import android.app.Application
 import com.google.android.gms.location.FusedLocationProviderClient
-import com.vendetta.weather.presentation.MainActivity
+import com.vendetta.weather.presentation.factory.ViewModelFactory
 import dagger.BindsInstance
 import dagger.Component
 
@@ -10,7 +10,7 @@ import dagger.Component
 @Component(modules = [DataModule::class, ViewModelModule::class])
 interface ApplicationComponent {
 
-    fun inject(mainActivity: MainActivity)
+    fun getViewModelFactory(): ViewModelFactory
 
     @Component.Factory
     interface Factory {

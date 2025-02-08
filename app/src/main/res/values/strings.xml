@@ -11,7 +11,7 @@
     <string name="sunrise">Sunrise</string>
     <string name="sunset">Sunset</string>
     <string name="chance_of_rain">Chance of rain</string>
-    <string name="gradus_celsius" translatable="false">°C</string>
+    <string name="humidity">Humidity</string>
     <!--days of week-->
     <string name="monday">Monday</string>
     <string name="tuesday">Tuesday</string>
@@ -37,4 +37,9 @@
     <string name="city">City</string>
     <string name="find">Find</string>
     <string name="find_city">Find City</string>
+    <!--metric units-->
+    <string name="gradus_celsius" translatable="false">°C</string>
+    <string name="percent" translatable="false">%</string>
+    <string name="millibars">Millibars</string>
+    <string name="kilometers_per_hour">km/h</string>
 </resources>
