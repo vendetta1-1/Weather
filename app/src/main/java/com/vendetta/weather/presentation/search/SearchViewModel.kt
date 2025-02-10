@@ -1,37 +1,36 @@
 package com.vendetta.weather.presentation.search
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vendetta.weather.domain.useCase.GetWeatherInCityPeakedByUserDayAfterTomorrowUseCase
-import com.vendetta.weather.domain.useCase.GetWeatherInCityPeakedByUserTodayUseCase
 import com.vendetta.weather.domain.useCase.GetWeatherInCityPeakedByUserTomorrowUseCase
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
+import com.vendetta.weather.domain.useCase.GetWeatherInCityPeakedByUserUseCase
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class SearchViewModel @Inject constructor(
-    private val getWeatherInCityPeakedByUserTodayUseCase: GetWeatherInCityPeakedByUserTodayUseCase,
+    private val getWeatherInCityPeakedByUserTodayUseCase: GetWeatherInCityPeakedByUserUseCase,
     private val getWeatherInCityPeakedByUserTomorrowUseCase: GetWeatherInCityPeakedByUserTomorrowUseCase,
     private val getWeatherInCityPeakedByUserDayAfterTomorrowUseCase: GetWeatherInCityPeakedByUserDayAfterTomorrowUseCase
 ) : ViewModel() {
 
-    private val _screenState = MutableLiveData<SearchScreenState>()
-    val screenState: LiveData<SearchScreenState> = _screenState
+    private val _screenState = MutableStateFlow<SearchScreenState>(SearchScreenState.Initial)
+    val screenState = _screenState.asStateFlow()
 
     fun loadWeather(city: String) {
-        _screenState.value = SearchScreenState.Loading
         viewModelScope.launch {
-            _screenState.value = async(Dispatchers.IO) {
+            _screenState.emit(SearchScreenState.Loading)
+            _screenState.emit(
                 SearchScreenState.Success(
                     currentWeatherEntity = getWeatherInCityPeakedByUserTodayUseCase(city),
                     tomorrowWeatherEntity = getWeatherInCityPeakedByUserTomorrowUseCase(city),
-                    dayAfterTomorrowWeatherEntity =
-                    getWeatherInCityPeakedByUserDayAfterTomorrowUseCase(city)
+                    dayAfterTomorrowWeatherEntity = getWeatherInCityPeakedByUserDayAfterTomorrowUseCase(
+                        city
+                    )
                 )
-            }.await()
+            )
         }
     }
 

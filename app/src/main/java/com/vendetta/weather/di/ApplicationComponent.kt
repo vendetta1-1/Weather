@@ -12,6 +12,8 @@ interface ApplicationComponent {
 
     fun getViewModelFactory(): ViewModelFactory
 
+    fun getLocationClient(): FusedLocationProviderClient
+
     @Component.Factory
     interface Factory {
 

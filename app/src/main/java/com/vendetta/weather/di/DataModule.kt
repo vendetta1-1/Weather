@@ -13,7 +13,7 @@ interface DataModule {
 
     @ApplicationScope
     @Binds
-    fun bindRepository(repositoryImpl: WeatherRepositoryImpl): WeatherRepository
+    fun bindWeatherRepository(repositoryImpl: WeatherRepositoryImpl): WeatherRepository
 
     companion object {
         @ApplicationScope

@@ -1,4 +1,4 @@
-package com.vendetta.weather.domain.entity
+package com.vendetta.weather.domain.entity.weather
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
@@ -11,6 +11,6 @@ data class LocationEntity(
     val lat: Double,
     val lon: Double,
     val tzId: String,
-    val localtimeEpoch: Int,
+    val localtimeEpoch: Long,
     val localtime: String
 ) : Parcelable

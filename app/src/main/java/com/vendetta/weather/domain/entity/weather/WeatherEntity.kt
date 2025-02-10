@@ -1,4 +1,4 @@
-package com.vendetta.weather.domain.entity
+package com.vendetta.weather.domain.entity.weather
 
 import android.os.Build
 import android.os.Bundle

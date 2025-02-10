@@ -26,7 +26,7 @@ data class LocationDto(
     val tzId: String,
     @SerializedName("localtime_epoch")
     @Expose
-    val localtimeEpoch: Int,
+    val localtimeEpoch: Long,
     @SerializedName("localtime")
     @Expose
     val localtime: String

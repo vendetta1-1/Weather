@@ -10,11 +10,10 @@ import com.vendetta.weather.di.DaggerApplicationComponent
 class WeatherApp : Application() {
 
     val applicationComponent: ApplicationComponent by lazy {
-        DaggerApplicationComponent.factory()
-            .create(
-                this,
-                LocationServices.getFusedLocationProviderClient(this)
-            )
+        DaggerApplicationComponent.factory().create(
+            application = this,
+            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+        )
     }
 }
 

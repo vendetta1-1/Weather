@@ -21,8 +21,8 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -32,7 +32,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.vendetta.weather.R
-import com.vendetta.weather.domain.entity.WeatherEntity
+import com.vendetta.weather.domain.entity.weather.WeatherEntity
 import com.vendetta.weather.presentation.factory.ViewModelFactory
 
 @Composable
@@ -42,15 +42,19 @@ fun SearchScreen(
     onBackButtonBackListener: () -> Unit
 ) {
     val viewModel: SearchViewModel = viewModel(factory = viewModelFactory)
-    val screenState = viewModel.screenState.observeAsState(SearchScreenState.Initial)
+    val screenState = viewModel.screenState.collectAsState(SearchScreenState.Initial)
+    val currentState = screenState.value
 
+    // баг при переходе назад связанный со стейтом
     SearchScreenContent(
-        onBackButtonBackListener = onBackButtonBackListener,
         viewModel = viewModel,
         screenState = screenState,
-        navToWeather = navToWeather
+        onBackButtonBackListener = onBackButtonBackListener
     )
 
+    if (currentState is SearchScreenState.Success) {
+        navToWeather(currentState.currentWeatherEntity, false)
+    }
 }
 
 
@@ -59,8 +63,7 @@ fun SearchScreen(
 private fun SearchScreenContent(
     viewModel: SearchViewModel,
     screenState: State<SearchScreenState>,
-    navToWeather: (WeatherEntity, Boolean) -> Unit,
-    onBackButtonBackListener: () -> Unit
+    onBackButtonBackListener: () -> Unit,
 ) {
     val currentState = screenState.value
     Scaffold(
@@ -75,7 +78,7 @@ private fun SearchScreenContent(
                     )
                 },
                 navigationIcon = {
-                    IconButton(onClick = { onBackButtonBackListener() }) {
+                    IconButton(onClick = onBackButtonBackListener) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
                             contentDescription = null,
@@ -110,9 +113,6 @@ private fun SearchScreenContent(
             Button(
                 onClick = {
                     viewModel.loadWeather(city)
-                    if (currentState is SearchScreenState.Success) {
-                        navToWeather(currentState.currentWeatherEntity, false)
-                    }
                 },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.onBackground,

@@ -1,6 +1,6 @@
 package com.vendetta.weather.presentation.loading
 
-import com.vendetta.weather.domain.entity.WeatherEntity
+import com.vendetta.weather.domain.entity.weather.WeatherEntity
 
 sealed class LoadingScreenState {
 
@@ -11,4 +11,5 @@ sealed class LoadingScreenState {
         val tomorrowWeatherEntity: WeatherEntity,
         val dayAfterTomorrowWeatherEntity: WeatherEntity
     ) : LoadingScreenState()
+
 }
