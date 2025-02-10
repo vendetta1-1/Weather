@@ -1,7 +1,7 @@
 package com.vendetta.weather.domain.repository
 
 import android.location.Location
-import com.vendetta.weather.domain.entity.WeatherEntity
+import com.vendetta.weather.domain.entity.weather.WeatherEntity
 
 interface WeatherRepository {
 

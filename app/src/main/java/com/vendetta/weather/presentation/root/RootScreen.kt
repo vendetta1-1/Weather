@@ -1,7 +1,7 @@
 package com.vendetta.weather.presentation.root
 
-import android.app.Activity
 import androidx.compose.runtime.Composable
+import com.google.android.gms.location.FusedLocationProviderClient
 import com.vendetta.weather.navigation.AppNavGraph
 import com.vendetta.weather.navigation.Screen
 import com.vendetta.weather.navigation.rememberNavigationState
@@ -12,8 +12,8 @@ import com.vendetta.weather.presentation.weather.WeatherScreen
 
 @Composable
 fun RootScreen(
-    activity: Activity,
-    viewModelFactory: ViewModelFactory
+    viewModelFactory: ViewModelFactory,
+    locationClient: FusedLocationProviderClient
 ) {
     val navigationState = rememberNavigationState()
     AppNavGraph(
@@ -22,7 +22,7 @@ fun RootScreen(
             LoadingScreen(
                 navToWeather = navigationState::navigateToWeather,
                 viewModelFactory = viewModelFactory,
-                activity = activity
+                locationClient = locationClient
             )
         },
         searchScreenContent = {

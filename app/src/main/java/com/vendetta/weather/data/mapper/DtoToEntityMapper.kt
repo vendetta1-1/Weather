@@ -7,13 +7,13 @@ import com.vendetta.weather.data.network.dto.DayDto
 import com.vendetta.weather.data.network.dto.ForecastDayDto
 import com.vendetta.weather.data.network.dto.LocationDto
 import com.vendetta.weather.data.network.dto.WeatherDto
-import com.vendetta.weather.domain.entity.AstroEntity
-import com.vendetta.weather.domain.entity.ConditionEntity
-import com.vendetta.weather.domain.entity.CurrentEntity
-import com.vendetta.weather.domain.entity.DayEntity
-import com.vendetta.weather.domain.entity.ForecastDayEntity
-import com.vendetta.weather.domain.entity.LocationEntity
-import com.vendetta.weather.domain.entity.WeatherEntity
+import com.vendetta.weather.domain.entity.weather.AstroEntity
+import com.vendetta.weather.domain.entity.weather.ConditionEntity
+import com.vendetta.weather.domain.entity.weather.CurrentEntity
+import com.vendetta.weather.domain.entity.weather.DayEntity
+import com.vendetta.weather.domain.entity.weather.ForecastDayEntity
+import com.vendetta.weather.domain.entity.weather.LocationEntity
+import com.vendetta.weather.domain.entity.weather.WeatherEntity
 
 fun WeatherDto.toEntity() = WeatherEntity(
     location = this.location.toEntity(),

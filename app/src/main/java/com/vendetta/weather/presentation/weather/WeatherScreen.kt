@@ -1,7 +1,6 @@
 package com.vendetta.weather.presentation.weather
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,7 +11,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -40,8 +38,11 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.vendetta.weather.R
-import com.vendetta.weather.domain.entity.WeatherEntity
-import com.vendetta.weather.presentation.loading.LoadingViewModel
+import com.vendetta.weather.domain.entity.weather.WeatherEntity
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.util.Date
+import java.util.Locale
 
 @Composable
 fun WeatherScreen(
@@ -67,14 +68,10 @@ fun WeatherScreen(
             horizontalAlignment = Alignment.CenterHorizontally
 
         ) {
-            with(LoadingViewModel) {
-                DateHeader(
-                    dayOfWeekResource = getDayOfWeek(),
-                    monthResource = getMonth(),
-                    dayOfMonth = getDayOfMonth(),
-                    year = getYear()
-                )
-            }
+            DateHeader(
+                dateText = mapTimestampToDate(weatherEntity.location.localtimeEpoch)
+            )
+
             TempStatistics(
                 currentTempC = weatherEntity.current.tempC,
                 minTempC = weatherEntity.forecastDay.dayEntity.minTempC,
@@ -309,10 +306,7 @@ private fun MicroStatistic(
 
 @Composable
 private fun DateHeader(
-    dayOfWeekResource: Int,
-    monthResource: Int,
-    dayOfMonth: String,
-    year: String
+    dateText: String
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -320,7 +314,7 @@ private fun DateHeader(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = "${stringResource(dayOfWeekResource)},$dayOfMonth ${stringResource(monthResource)} $year",
+            text = dateText,
             style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.secondary
         )
@@ -372,5 +366,28 @@ fun getConditionImage(code: Int): Int {
     }
 }
 
+@Composable
+fun getDayOfWeek(timestamp: Long): String {
+    val map: Map<Int, String> = mapOf(
+        1 to stringResource(R.string.monday),
+        2 to stringResource(R.string.tuesday),
+        3 to stringResource(R.string.wednesday),
+        4 to stringResource(R.string.thursday),
+        5 to stringResource(R.string.friday),
+        6 to stringResource(R.string.saturday),
+        7 to stringResource(R.string.sunday)
+    )
+    return map[LocalDate.ofEpochDay(timestamp / 86400).dayOfWeek.value]
+        ?: throw RuntimeException("Unknown Day of week")
+}
 
-
+@Composable
+private fun mapTimestampToDate(timestamp: Long): String {
+    val date = Date(timestamp * 1000)
+    return "${getDayOfWeek(timestamp)}, ${
+        SimpleDateFormat(
+            "d MMMM yyyy",
+            Locale.getDefault()
+        ).format(date)
+    }"
+}

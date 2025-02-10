@@ -14,10 +14,11 @@ class MainActivity : ComponentActivity() {
         setContent {
             val component = getApplicationComponent()
             val viewModelFactory = component.getViewModelFactory()
+            val locationClient = component.getLocationClient()
             WeatherTheme {
                 RootScreen(
-                    activity = this,
-                    viewModelFactory = viewModelFactory
+                    viewModelFactory = viewModelFactory,
+                    locationClient = locationClient
                 )
             }
         }
