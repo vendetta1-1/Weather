@@ -45,25 +45,26 @@ fun SearchScreen(
     val screenState = viewModel.screenState.collectAsState(SearchScreenState.Initial)
     val currentState = screenState.value
 
-    // баг при переходе назад связанный со стейтом
-    SearchScreenContent(
-        viewModel = viewModel,
-        screenState = screenState,
-        onBackButtonBackListener = onBackButtonBackListener
-    )
-
     if (currentState is SearchScreenState.Success) {
         navToWeather(currentState.currentWeatherEntity, false)
     }
+
+    SearchScreenContent(
+        screenState = screenState,
+        onBackButtonBackListener = onBackButtonBackListener,
+        onButtonClickListener = {
+            viewModel.loadWeather(it)
+        }
+    )
 }
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun SearchScreenContent(
-    viewModel: SearchViewModel,
     screenState: State<SearchScreenState>,
     onBackButtonBackListener: () -> Unit,
+    onButtonClickListener: (String) -> Unit
 ) {
     val currentState = screenState.value
     Scaffold(
@@ -112,7 +113,7 @@ private fun SearchScreenContent(
 
             Button(
                 onClick = {
-                    viewModel.loadWeather(city)
+                    onButtonClickListener(city)
                 },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.onBackground,
