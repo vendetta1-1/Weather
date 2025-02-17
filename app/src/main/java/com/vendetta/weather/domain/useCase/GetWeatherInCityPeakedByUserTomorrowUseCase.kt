@@ -1,6 +1,6 @@
 package com.vendetta.weather.domain.useCase
 
-import com.vendetta.weather.domain.entity.weather.WeatherEntity
+import com.vendetta.weather.domain.entity.WeatherEntity
 import com.vendetta.weather.domain.repository.WeatherRepository
 import javax.inject.Inject
 

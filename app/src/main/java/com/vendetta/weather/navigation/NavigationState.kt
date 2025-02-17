@@ -5,7 +5,7 @@ import androidx.compose.runtime.remember
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.vendetta.weather.domain.entity.weather.WeatherEntity
+import com.vendetta.weather.domain.entity.WeatherEntity
 
 class NavigationState(
     val navHostController: NavHostController

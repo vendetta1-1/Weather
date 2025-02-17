@@ -1,6 +1,6 @@
 package com.vendetta.weather.presentation.loading
 
-import com.vendetta.weather.domain.entity.weather.WeatherEntity
+import com.vendetta.weather.domain.entity.WeatherEntity
 
 sealed class LoadingScreenState {
 

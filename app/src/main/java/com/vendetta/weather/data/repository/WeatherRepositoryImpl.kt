@@ -3,7 +3,7 @@ package com.vendetta.weather.data.repository
 import android.location.Location
 import com.vendetta.weather.data.mapper.toEntity
 import com.vendetta.weather.data.network.api.ApiService
-import com.vendetta.weather.domain.entity.weather.WeatherEntity
+import com.vendetta.weather.domain.entity.WeatherEntity
 import com.vendetta.weather.domain.repository.WeatherRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

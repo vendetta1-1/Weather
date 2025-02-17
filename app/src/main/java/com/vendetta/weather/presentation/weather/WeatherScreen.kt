@@ -38,7 +38,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.vendetta.weather.R
-import com.vendetta.weather.domain.entity.weather.WeatherEntity
+import com.vendetta.weather.domain.entity.WeatherEntity
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.util.Date

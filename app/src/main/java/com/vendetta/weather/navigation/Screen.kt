@@ -2,7 +2,7 @@ package com.vendetta.weather.navigation
 
 import android.net.Uri
 import com.google.gson.Gson
-import com.vendetta.weather.domain.entity.weather.WeatherEntity
+import com.vendetta.weather.domain.entity.WeatherEntity
 
 sealed class Screen(
     val route: String

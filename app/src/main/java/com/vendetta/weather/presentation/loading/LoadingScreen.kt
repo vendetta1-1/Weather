@@ -28,7 +28,7 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.Granularity
 import com.google.android.gms.location.Priority
 import com.vendetta.weather.R
-import com.vendetta.weather.domain.entity.weather.WeatherEntity
+import com.vendetta.weather.domain.entity.WeatherEntity
 import com.vendetta.weather.presentation.factory.ViewModelFactory
 
 @Composable
