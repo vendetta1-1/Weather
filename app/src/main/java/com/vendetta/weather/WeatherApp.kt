@@ -11,8 +11,8 @@ class WeatherApp : Application() {
 
     val applicationComponent: ApplicationComponent by lazy {
         DaggerApplicationComponent.factory().create(
-            application = this,
-            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+            this,
+            LocationServices.getFusedLocationProviderClient(this)
         )
     }
 }

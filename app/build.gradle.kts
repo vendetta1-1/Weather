@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.ksp)
-    alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.serialization)
 }
 android {
     namespace = "com.vendetta.weather"
@@ -31,11 +31,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = "21"
     }
     buildFeatures {
         compose = true
@@ -51,6 +51,9 @@ android {
 
 }
 dependencies {
+    implementation(project(":navigation"))
+    implementation(project(":domain"))
+    implementation(project(":data"))
     //navigation
     implementation(libs.androidx.navigation.compose)
     //location
@@ -58,9 +61,6 @@ dependencies {
     //dependency injection
     implementation(libs.dagger)
     ksp(libs.dagger.compiler)
-    //retrofit
-    implementation(libs.retrofit)
-    implementation(libs.retrofit.converter.gson)
     //coroutines
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.coroutines.core)

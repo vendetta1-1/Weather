@@ -2,9 +2,9 @@ package com.vendetta.weather.presentation.root
 
 import androidx.compose.runtime.Composable
 import com.google.android.gms.location.FusedLocationProviderClient
-import com.vendetta.weather.navigation.AppNavGraph
-import com.vendetta.weather.navigation.Screen
-import com.vendetta.weather.navigation.rememberNavigationState
+import com.vendetta.navigation.AppNavGraph
+import com.vendetta.navigation.Screen
+import com.vendetta.navigation.rememberNavigationState
 import com.vendetta.weather.presentation.factory.ViewModelFactory
 import com.vendetta.weather.presentation.loading.LoadingScreen
 import com.vendetta.weather.presentation.search.SearchScreen
@@ -43,8 +43,6 @@ fun RootScreen(
             )
         }
     )
-
-
 }
 
 

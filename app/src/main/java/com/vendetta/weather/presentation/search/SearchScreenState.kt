@@ -1,6 +1,6 @@
 package com.vendetta.weather.presentation.search
 
-import com.vendetta.weather.domain.entity.WeatherEntity
+import com.vendetta.domain.entity.WeatherEntity
 
 sealed class SearchScreenState {
 

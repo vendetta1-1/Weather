@@ -2,9 +2,9 @@ package com.vendetta.weather.presentation.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.vendetta.weather.domain.useCase.GetWeatherInCityPeakedByUserDayAfterTomorrowUseCase
-import com.vendetta.weather.domain.useCase.GetWeatherInCityPeakedByUserTomorrowUseCase
-import com.vendetta.weather.domain.useCase.GetWeatherInCityPeakedByUserUseCase
+import com.vendetta.domain.useCase.GetWeatherInCityPeakedByUserDayAfterTomorrowUseCase
+import com.vendetta.domain.useCase.GetWeatherInCityPeakedByUserTomorrowUseCase
+import com.vendetta.domain.useCase.GetWeatherInCityPeakedByUserUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch

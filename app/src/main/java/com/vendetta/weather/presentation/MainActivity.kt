@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.vendetta.weather.getApplicationComponent
 import com.vendetta.weather.presentation.root.RootScreen
-import com.vendetta.weather.ui.theme.WeatherTheme
+import com.vendetta.weather.presentation.ui.theme.WeatherTheme
 
 class MainActivity : ComponentActivity() {
 

@@ -1,11 +1,10 @@
 package com.vendetta.weather.presentation.loading
 
-import android.location.Location
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.vendetta.weather.domain.useCase.GetWeatherInCurrentLocationDayAfterTomorrowUseCase
-import com.vendetta.weather.domain.useCase.GetWeatherInCurrentLocationTodayUseCase
-import com.vendetta.weather.domain.useCase.GetWeatherInCurrentLocationTomorrowUseCase
+import com.vendetta.domain.useCase.GetWeatherInCurrentLocationDayAfterTomorrowUseCase
+import com.vendetta.domain.useCase.GetWeatherInCurrentLocationTodayUseCase
+import com.vendetta.domain.useCase.GetWeatherInCurrentLocationTomorrowUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -23,14 +22,20 @@ class LoadingViewModel @Inject constructor(
     val screenState = _screenState.asStateFlow()
 
 
-    fun loadWeather(location: Location) {
+    fun loadWeather(latitude: Double, longitude: Double) {
         viewModelScope.launch {
             _screenState.emit(
                 LoadingScreenState.Success(
-                    currentWeatherEntity = getWeatherInCurrentLocationTodayUseCase(location),
-                    tomorrowWeatherEntity = getWeatherInCurrentLocationTomorrowUseCase(location),
+                    currentWeatherEntity = getWeatherInCurrentLocationTodayUseCase(
+                        latitude,
+                        longitude
+                    ),
+                    tomorrowWeatherEntity = getWeatherInCurrentLocationTomorrowUseCase(
+                        latitude,
+                        longitude
+                    ),
                     dayAfterTomorrowWeatherEntity = getWeatherInCurrentLocationDayAfterTomorrowUseCase(
-                        location
+                        latitude, longitude
                     )
                 )
             )

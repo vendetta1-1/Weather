@@ -27,8 +27,8 @@ import com.google.android.gms.location.CurrentLocationRequest
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.Granularity
 import com.google.android.gms.location.Priority
+import com.vendetta.domain.entity.WeatherEntity
 import com.vendetta.weather.R
-import com.vendetta.weather.domain.entity.WeatherEntity
 import com.vendetta.weather.presentation.factory.ViewModelFactory
 
 @Composable
@@ -107,12 +107,12 @@ private fun loadWeather(
     if (context.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
         val currentLocationRequest = CurrentLocationRequest.Builder()
             .setPriority(Priority.PRIORITY_HIGH_ACCURACY)
-            .setGranularity(Granularity.GRANULARITY_FINE)
-            .setDurationMillis(2000)
+            .setGranularity(Granularity.GRANULARITY_COARSE)
+            .setDurationMillis(5000)
         locationClient.getCurrentLocation(currentLocationRequest.build(), null)
             .addOnSuccessListener {
                 if (it != null) {
-                    viewModel.loadWeather(it)
+                    viewModel.loadWeather(it.latitude, it.longitude)
                 } else {
                     Toast.makeText(
                         context,
