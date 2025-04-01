@@ -1,5 +1,5 @@
 [versions]
-agp = "8.9.0"
+agp = "8.9.1"
 navigationCompose = "2.8.9"
 daggerCompiler = "2.55"
 kotlin = "2.1.10"
@@ -47,12 +47,11 @@ androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime
 lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidXLifeCycle" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 gson-converter = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
-
-
 play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "playServicesLocation" }
 androidx-runner = { group = "androidx.test", name = "runner", version.ref = "runner" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+
 [plugins]
 serialization = {id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin"}
 android-application = { id = "com.android.application", version.ref = "agp" }
