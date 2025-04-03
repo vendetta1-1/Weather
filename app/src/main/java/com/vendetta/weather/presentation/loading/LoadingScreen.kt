@@ -33,7 +33,7 @@ import com.vendetta.weather.presentation.factory.ViewModelFactory
 
 @Composable
 fun LoadingScreen(
-    navToWeather: (WeatherEntity, Boolean) -> Unit,
+    navToWeather: (WeatherEntity, WeatherEntity, WeatherEntity, Boolean) -> Unit,
     viewModelFactory: ViewModelFactory,
     locationClient: FusedLocationProviderClient
 ) {
@@ -69,7 +69,12 @@ fun LoadingScreen(
 
         is LoadingScreenState.Success -> {
             LoadingScreenContent()
-            navToWeather(currentState.currentWeatherEntity, true)
+            navToWeather(
+                currentState.currentWeatherEntity,
+                currentState.tomorrowWeatherEntity,
+                currentState.dayAfterTomorrowWeatherEntity,
+                true
+            )
         }
     }
 }

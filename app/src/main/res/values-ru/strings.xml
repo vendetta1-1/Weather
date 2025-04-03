@@ -24,4 +24,7 @@
     <string name="find_city">Найти город</string>
     <string name="millibars">Милибар</string>
     <string name="kilometers_per_hour">км/ч</string>
+    <string name="today">Сегодня</string>
+    <string name="tomorrow">Завтра</string>
+    <string name="day_after_tomorrow">Послезавтра</string>
 </resources>

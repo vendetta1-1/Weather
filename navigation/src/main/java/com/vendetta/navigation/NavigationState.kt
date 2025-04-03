@@ -21,11 +21,18 @@ class NavigationState(
     }
 
 
-    fun navigateToWeather(weatherEntity: WeatherEntity, isCurrentLocation: Boolean) {
+    fun navigateToWeather(
+        todayWeather: WeatherEntity,
+        tomorrowWeather: WeatherEntity,
+        dayAfterTomorrowWeather: WeatherEntity,
+        isCurrentLocation: Boolean
+    ) {
         navHostController.popBackStack()
         navHostController.navigate(
             Screen.Weather.getRouteWithArgs(
-                weatherEntity,
+                todayWeather,
+                tomorrowWeather,
+                dayAfterTomorrowWeather,
                 isCurrentLocation
             )
         )

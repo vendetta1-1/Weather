@@ -34,9 +34,11 @@ fun RootScreen(
                 navToWeather = navigationState::navigateToWeather
             )
         },
-        weatherScreenContent = { weatherEntity, isCurrentLocation ->
+        weatherScreenContent = { todayWeather, tomorrowWeather, dayAfterTomorrowWeather, isCurrentLocation ->
             WeatherScreen(
-                weatherEntity = weatherEntity,
+                todayWeatherEntity = todayWeather,
+                tomorrowWeatherEntity = tomorrowWeather,
+                dayAfterTomorrowWeather = dayAfterTomorrowWeather,
                 isCurrentLocation = isCurrentLocation,
                 onSearchButtonClickListener = { navigationState.navigateTo(Screen.Search.route) },
                 onBackButtonClickListener = { navigationState.navHostController.popBackStack() }

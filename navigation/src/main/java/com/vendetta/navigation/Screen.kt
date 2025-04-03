@@ -3,6 +3,7 @@ package com.vendetta.navigation
 import android.net.Uri
 import com.google.gson.Gson
 import com.vendetta.domain.entity.WeatherEntity
+import com.vendetta.domain.useCase.GetWeatherInCurrentLocationDayAfterTomorrowUseCase
 
 sealed class Screen(
     val route: String
@@ -15,16 +16,27 @@ sealed class Screen(
 
         private const val ROUTE_FOR_ARGS = "weather"
 
-        fun getRouteWithArgs(weatherEntity: WeatherEntity, isCurrentLocation: Boolean): String {
-            val weatherEntityJson = Gson().toJson(weatherEntity)
-            return "$ROUTE_FOR_ARGS/${weatherEntityJson.encode()}/$isCurrentLocation"
+        fun getRouteWithArgs(
+            todayWeather: WeatherEntity,
+            tomorrowWeather: WeatherEntity,
+            dayAfterTomorrowWeather: WeatherEntity,
+            isCurrentLocation: Boolean
+        ): String {
+            val gson = Gson()
+            val todayWeatherJson = gson.toJson(todayWeather)
+            val tomorrowWeatherJson = gson.toJson(tomorrowWeather)
+            val dayAfterTomorrowWeatherJson = gson.toJson(dayAfterTomorrowWeather)
+            return "$ROUTE_FOR_ARGS/${todayWeatherJson.encode()}/${tomorrowWeatherJson.encode()}/${dayAfterTomorrowWeatherJson.encode()}/$isCurrentLocation"
         }
     }
 
     companion object {
-        const val WEATHER_KEY = "weather_entity"
+        const val TODAY_WEATHER_KEY = "today_weather"
+        const val TOMORROW_WEATHER_KEY = "tomorrow_weather"
+        const val DAY_AFTER_TOMORROW_WEATHER_KEY = "day_after_tomorrow_weather"
         const val IS_CURRENT_LOCATION_KEY = "is_current_location"
-        private const val WEATHER_ROUTE = "weather/{$WEATHER_KEY}/{$IS_CURRENT_LOCATION_KEY}"
+        private const val WEATHER_ROUTE =
+            "weather/{$TODAY_WEATHER_KEY}/{${TOMORROW_WEATHER_KEY}}/{${DAY_AFTER_TOMORROW_WEATHER_KEY}}/{$IS_CURRENT_LOCATION_KEY}"
         private const val LOADING_ROUTE = "loading"
         private const val SEARCH_ROUTE = "search"
     }

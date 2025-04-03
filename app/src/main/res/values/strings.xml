@@ -30,4 +30,8 @@
     <string name="percent" translatable="false">%</string>
     <string name="millibars">Millibars</string>
     <string name="kilometers_per_hour">km/h</string>
+    <!--days navigation-->
+    <string name="today">Today</string>
+    <string name="tomorrow">Tomorrow</string>
+    <string name="day_after_tomorrow">Day after tomorrow</string>
 </resources>

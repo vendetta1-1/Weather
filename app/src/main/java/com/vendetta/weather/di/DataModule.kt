@@ -18,8 +18,6 @@ interface DataModule {
     companion object {
         @ApplicationScope
         @Provides
-        fun provideApiService(): ApiService {
-            return ApiFactory.apiService
-        }
+        fun provideApiService(): ApiService = ApiFactory.api
     }
 }

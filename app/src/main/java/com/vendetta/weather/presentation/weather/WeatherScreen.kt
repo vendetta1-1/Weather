@@ -16,6 +16,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -27,8 +29,13 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
@@ -46,7 +53,9 @@ import java.util.Locale
 
 @Composable
 fun WeatherScreen(
-    weatherEntity: WeatherEntity,
+    todayWeatherEntity: WeatherEntity,
+    tomorrowWeatherEntity: WeatherEntity,
+    dayAfterTomorrowWeather: WeatherEntity,
     isCurrentLocation: Boolean,
     onSearchButtonClickListener: () -> Unit,
     onBackButtonClickListener: () -> Unit
@@ -54,42 +63,89 @@ fun WeatherScreen(
     Scaffold(
         topBar = {
             WeatherTopAppBar(
-                city = weatherEntity.location.name,
-                country = weatherEntity.location.country,
+                city = todayWeatherEntity.location.name,
+                country = todayWeatherEntity.location.country,
                 isCurrentLocation = isCurrentLocation,
                 onSearchButtonClickListener = onSearchButtonClickListener,
                 onBackButtonClickListener = onBackButtonClickListener
             )
-        }
-    ) { padding ->
+        }) { padding ->
+        var selectedDay by remember { mutableStateOf<DaysNavigationItem>(DaysNavigationItem.TodayNavigationItem) }
+        val days = listOf(
+            DaysNavigationItem.TomorrowNavigationItem,
+            DaysNavigationItem.TodayNavigationItem,
+            DaysNavigationItem.DayAfterTomorrowNavigationItem
+        )
         Column(
-            modifier = Modifier
-                .padding(top = padding.calculateTopPadding() + 50.dp),
+            modifier = Modifier.padding(top = padding.calculateTopPadding() + 30.dp),
             horizontalAlignment = Alignment.CenterHorizontally
-
         ) {
-            DateHeader(
-                dateText = mapTimestampToDate(weatherEntity.location.localtimeEpoch)
-            )
+            when (selectedDay) {
+                DaysNavigationItem.DayAfterTomorrowNavigationItem -> {
+                    WeatherContent(dayAfterTomorrowWeather)
+                }
 
-            TempStatistics(
-                currentTempC = weatherEntity.current.tempC,
-                minTempC = weatherEntity.forecastDay.dayEntity.minTempC,
-                maxTempC = weatherEntity.forecastDay.dayEntity.maxTempC
-            )
-            Spacer(
-                modifier = Modifier
-                    .height(64.dp)
-            )
-            ConditionHeader(
-                text = weatherEntity.current.condition.text,
-                code = weatherEntity.current.condition.code
-            )
-            Spacer(
-                modifier = Modifier
-                    .height(64.dp)
-            )
+                DaysNavigationItem.TodayNavigationItem -> {
+                    WeatherContent(todayWeatherEntity)
+                }
+
+                DaysNavigationItem.TomorrowNavigationItem -> {
+                    WeatherContent(tomorrowWeatherEntity)
+                }
+            }
+            Row(
+                horizontalArrangement = Arrangement.Center,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                days.forEach { day ->
+                    Button(
+                        onClick = { selectedDay = day },
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(15.dp)),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = if (day == selectedDay) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSecondary,
+                            contentColor = MaterialTheme.colorScheme.onBackground
+                        )
+                    ) {
+                        Text(
+                            text = stringResource(day.titleResId),
+                            style = MaterialTheme.typography.labelSmall
+                        )
+                    }
+
+                }
+            }
         }
+    }
+}
+
+@Composable
+private fun WeatherContent(
+    weatherEntity: WeatherEntity,
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally
+
+    ) {
+        DateHeader(
+            dateText = mapTimestampToDate(weatherEntity.location.localtimeEpoch)
+        )
+
+        TempStatistics(
+            currentTempC = weatherEntity.current.tempC,
+            minTempC = weatherEntity.forecastDay.dayEntity.minTempC,
+            maxTempC = weatherEntity.forecastDay.dayEntity.maxTempC
+        )
+        Spacer(
+            modifier = Modifier.height(64.dp)
+        )
+        ConditionHeader(
+            text = weatherEntity.current.condition.text,
+            code = weatherEntity.current.condition.code
+        )
+        Spacer(
+            modifier = Modifier.height(64.dp)
+        )
     }
 }
 
@@ -121,8 +177,7 @@ private fun WeatherTopAppBar(
                 )
                 if (isCurrentLocation) {
                     Spacer(
-                        modifier = Modifier
-                            .height(6.dp)
+                        modifier = Modifier.height(6.dp)
                     )
                     Text(
                         text = stringResource(R.string.current_location),
@@ -167,9 +222,7 @@ private fun WeatherTopAppBar(
 
 @Composable
 private fun TempStatistics(
-    currentTempC: Double,
-    minTempC: Double,
-    maxTempC: Double
+    currentTempC: Double, minTempC: Double, maxTempC: Double
 ) {
     Column(
         modifier = Modifier
@@ -208,11 +261,8 @@ private fun TempStatistics(
                         append(stringResource(R.string.gradus_celsius))
                     }
 
-                },
-                color = MaterialTheme.colorScheme.onBackground
+                }, color = MaterialTheme.colorScheme.onBackground
             )
-
-
         }
     }
     Spacer(modifier = Modifier.height(4.dp))
@@ -224,21 +274,18 @@ private fun TempStatistics(
         horizontalArrangement = Arrangement.Center
     ) {
         ArrowWithText(
-            resId = R.drawable.arrow_down,
-            value = minTempC
+            resId = R.drawable.arrow_down, value = minTempC
         )
         Spacer(modifier = Modifier.width(32.dp))
         ArrowWithText(
-            resId = R.drawable.arrow_up,
-            value = maxTempC
+            resId = R.drawable.arrow_up, value = maxTempC
         )
     }
 }
 
 @Composable
 private fun ArrowWithText(
-    resId: Int,
-    value: Double
+    resId: Int, value: Double
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -261,16 +308,12 @@ private fun ArrowWithText(
 
 @Composable
 private fun MicroStatistic(
-    imageResId: Int,
-    titleResId: Int,
-    value: String
+    imageResId: Int, titleResId: Int, value: String
 ) {
     Card(
-        shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(
+        shape = RoundedCornerShape(16.dp), colors = CardDefaults.cardColors(
             containerColor = Color.DarkGray
-        ),
-        elevation = CardDefaults.cardElevation(
+        ), elevation = CardDefaults.cardElevation(
             defaultElevation = 2.dp
         )
     ) {
@@ -324,8 +367,7 @@ private fun DateHeader(
 
 @Composable
 private fun ConditionHeader(
-    text: String,
-    code: Int
+    text: String, code: Int
 ) {
     Column(
         verticalArrangement = Arrangement.Center,
@@ -338,8 +380,7 @@ private fun ConditionHeader(
             tint = MaterialTheme.colorScheme.onBackground
         )
         Spacer(
-            modifier = Modifier
-                .height(8.dp)
+            modifier = Modifier.height(8.dp)
         )
         Text(
             text = text,
@@ -386,8 +427,7 @@ private fun mapTimestampToDate(timestamp: Long): String {
     val date = Date(timestamp * 1000)
     return "${getDayOfWeek(timestamp)}, ${
         SimpleDateFormat(
-            "d MMMM yyyy",
-            Locale.getDefault()
+            "d MMMM yyyy", Locale.getDefault()
         ).format(date)
     }"
 }

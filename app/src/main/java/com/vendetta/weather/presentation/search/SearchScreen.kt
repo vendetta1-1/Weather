@@ -38,7 +38,7 @@ import com.vendetta.weather.presentation.factory.ViewModelFactory
 @Composable
 fun SearchScreen(
     viewModelFactory: ViewModelFactory,
-    navToWeather: (WeatherEntity, Boolean) -> Unit,
+    navToWeather: (WeatherEntity, WeatherEntity, WeatherEntity, Boolean) -> Unit,
     onBackButtonBackListener: () -> Unit
 ) {
     val viewModel: SearchViewModel = viewModel(factory = viewModelFactory)
@@ -46,15 +46,19 @@ fun SearchScreen(
     val currentState = screenState.value
 
     if (currentState is SearchScreenState.Success) {
-        navToWeather(currentState.currentWeatherEntity, false)
+        navToWeather(
+            currentState.currentWeatherEntity,
+            currentState.tomorrowWeatherEntity,
+            currentState.dayAfterTomorrowWeatherEntity,
+            false
+        )
     }
 
     SearchScreenContent(
         screenState = screenState,
         onBackButtonBackListener = onBackButtonBackListener,
-        onButtonClickListener = {
-            viewModel.loadWeather(it)
-        }
+        onButtonClickListener = viewModel::loadWeather
+
     )
 }
 
